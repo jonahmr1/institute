@@ -16,10 +16,12 @@ export class User {
   private static readonly PASSWORD_LENGTH = 8
   private readonly identifier: string
   private readonly role: Role
+  private readonly name: string
 
-  public constructor(identifier: string, role: Role) {
+  public constructor(identifier: string, role: Role, name: string) {
     this.identifier = identifier
-    this.role = role
+		this.role = role
+		this.name = name
   }
 
   public static get static() {
@@ -33,17 +35,31 @@ export class User {
     return this.identifier
   }
 
+  public get getName(): string {
+    return this.name
+  }
+
+  public get getRole(): Role {
+    return this.role
+  }
+
   public static async createUser({
+    name,
     identifier,
     role,
     password,
     confirmPassword,
   }: Readonly<{
+		name: string
     identifier: string
     role: Role
     password: string
     confirmPassword: string
   }>): Promise<Response<TranslationKey, string, number | string | undefined>> {
+		if (!name.length) return [
+			false,
+			"signup.empty_name",
+		]
     if (identifier.length !== User.IDENTIFIER_LENGTH)
       return [
         false,
@@ -63,10 +79,11 @@ export class User {
       "create-user",
       {
         body: {
+					name,
           identifier,
           password,
           role,
-        } as CreateUser,
+        } satisfies CreateUser as CreateUser,
       },
     )
     const { error } = result
@@ -76,7 +93,7 @@ export class User {
   }
 
   public static async signOut(): Response<TranslationKey> {
-    const { error } = await supabase.auth.signOut({ scope: "local" })
+		const { error } = await supabase.auth.signOut({ scope: "local" })
     if (error) return [false, error.message]
     return [true, "alerts.logout_success"]
   }

@@ -12,7 +12,7 @@
   "type": "نوع",
   "roles_alias": {
     "manager": "مدير",
-    "student": "طالب"
+    "student": "موظف"
   },
   "login": {
     "hint": "أدخل بياناتك أدناه لتسجيل الدخول إلى حسابك",
@@ -35,8 +35,8 @@
     "delete_success": "تم حذف المستخدم #{{identifier}} بنجاح"
   },
   "institute": {
-    "name": "الطيب محمد بوسنة",
-    "plan": "معهد"
+    "name": "5t0r",
+    "plan": "الورشة"
   },
   "alerts": {
     "signin_success": "تم تسجيل الدخول بنجاح إلى #{{identifier}}",
@@ -45,26 +45,11 @@
     "feature_unavailable": "هذه الميزة غير متوفرة حتى الان"
   },
   "nav": {
-    "main": {
-      "title": "المنصة",
-      "settings": "الإعدادات",
-      "general": "عام",
-      "team": "الفريق",
-      "billing": "الفواتير",
-      "limits": "الحدود"
-    },
     "projects": {
       "items": {
-        "users": "إدارة المستخدمين"
+        "users": "إدارة الورشة"
       },
-      "title": "المشاريع",
-      "view": "عرض المشروع",
-      "share": "مشاركة المشروع",
-      "delete": "حذف المشروع"
-    },
-    "secondary": {
-      "support": "الدعم",
-      "feedback": "التعليقات"
+      "title": "الرائيسية"
     },
     "user": {
       "account": "الحساب",

@@ -1,4 +1,4 @@
-import { GalleryVerticalEnd } from "lucide-react"
+import { Warehouse } from "lucide-react"
 import { LoginForm } from "@/app/login/form"
 import { INSTITUTE_LOGO } from "@/lib"
 import { useTranslation } from "react-i18next"
@@ -13,7 +13,7 @@ export const Login = () => {
         <div className="flex justify-center gap-2 md:justify-start">
           <NavLink to="/login" className="flex items-center gap-2 font-medium">
             <div className="flex size-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <GalleryVerticalEnd className="size-4" />
+              <Warehouse className="size-4" />
             </div>
             {t("institute.name")}
           </NavLink>

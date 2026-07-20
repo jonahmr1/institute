@@ -1,7 +1,7 @@
 import type { Permission, Role } from "@/types"
 
 export const INSTITUTE_LOGO =
-  "https://graph.facebook.com/insfpmohammadia/picture?type=large"
+  "https://i.ytimg.com/vi/xLEg3oHARbU/maxresdefault.jpg"
 
 export const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
   manager: ["create:user", "read:users", "delete:user"],

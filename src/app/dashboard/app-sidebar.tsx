@@ -2,9 +2,7 @@
 
 import * as React from "react"
 
-import { NavMain } from "@/app/dashboard/nav-main"
 import { NavProjects } from "@/app/dashboard/nav-projects"
-import { NavSecondary } from "@/app/dashboard/nav-secondary"
 import { NavUser } from "@/app/dashboard/nav-user"
 import {
   Sidebar,
@@ -17,11 +15,8 @@ import {
 } from "@/components/ui/sidebar"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
-  Settings05Icon,
-  ChartRingIcon,
-  SentIcon,
   CommandIcon,
-  ManagerFreeIcons,
+  CarParking02Icon,
 } from "@hugeicons/core-free-icons"
 import { Link } from "react-router"
 import { useUser } from "@/hooks/use-user"
@@ -35,54 +30,18 @@ export const AppSidebar = ({
   const { t } = useTranslation()
 
   const data = {
-    navMain: [
-      {
-        icon: <HugeiconsIcon icon={Settings05Icon} strokeWidth={2} />,
-        items: [
-          {
-            title: t("nav.main.general"),
-            url: "",
-          },
-          {
-            title: t("nav.main.team"),
-            url: "",
-          },
-          {
-            title: t("nav.main.billing"),
-            url: "",
-          },
-          {
-            title: t("nav.main.limits"),
-            url: "",
-          },
-        ],
-        title: t("nav.main.settings"),
-        url: "",
-      },
-    ],
-    navSecondary: [
-      {
-        icon: <HugeiconsIcon icon={ChartRingIcon} strokeWidth={2} />,
-        title: t("nav.secondary.support"),
-        url: "",
-      },
-      {
-        icon: <HugeiconsIcon icon={SentIcon} strokeWidth={2} />,
-        title: t("nav.secondary.feedback"),
-        url: "",
-      },
-    ],
     projects: [
       {
-        icon: <HugeiconsIcon icon={ManagerFreeIcons} strokeWidth={2} />,
+        icon: <HugeiconsIcon icon={CarParking02Icon} strokeWidth={2} />,
         name: ROUTES.users.label(),
         url: ROUTES.users.route,
+				userRole: user.getRole
       },
     ],
     user: {
       avatar: "/avatars/shadcn.jpg",
       email: user.getIdentifier,
-      name: "shadcn",
+      name: user.getName,
     },
   }
   return (
@@ -113,9 +72,7 @@ export const AppSidebar = ({
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

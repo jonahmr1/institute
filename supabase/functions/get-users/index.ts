@@ -1,5 +1,5 @@
 import { UserConnection } from '../_shared/index.ts'
-import type { Role, UserAccount } from '../_shared/types.ts'
+import type { UserAccount } from '../_shared/types.ts'
 
 Deno.serve(async (req) => {
   const connection = new UserConnection(req)
@@ -15,7 +15,7 @@ Deno.serve(async (req) => {
   /* Get the users's data from `public.users` */
   const { data: profiles, error: postgresError } = await priviledged
     .from('users')
-    .select('id, role, identifier').overrideTypes<UserAccount<Role>[]>()
+    .select('id, role, identifier, name').overrideTypes<UserAccount[]>()
   if (postgresError) return new Response(postgresError.message, { status: 400, headers: corsHeaders })
 
   /* Security: only send wanted data */
@@ -23,7 +23,7 @@ Deno.serve(async (req) => {
     // remove the falsy value returned from the method `find` and filters out the soft deleted users
     const profile = profiles.find((p) => p.id === user.id && !user.deleted_at)
     if (!profile) return []
-    return [{ identifier: profile.identifier, role: profile.role }]
+    return [{ identifier: profile.identifier, role: profile.role, name: profile.name }]
   })
 
   return Response.json(usersData, { status: 200, headers: corsHeaders })

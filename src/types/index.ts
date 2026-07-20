@@ -2,7 +2,7 @@ import type { User } from "@/lib/user"
 import type { Database } from "./_database"
 import type { Direction } from "radix-ui"
 import type { Translations } from "@/locales"
-import type { edge } from "lenix"
+import type * as edge from './shared'
 
 export type Role = Database["public"]["Tables"]["users"]["Row"]["role"]
 export type Permission = Database["public"]["Enums"]["user_permissions"]
@@ -37,7 +37,7 @@ export type IDirectionProvider = React.ComponentProps<
 >
 export type UserAccount = edge.UserAccount<
   Role,
-  Translations["roles_alias"][Role][]
+  Translations["roles_alias"][Role]
 >
 export type Events = edge.Events
 export type CreateUser = edge.CreateUser<Role>

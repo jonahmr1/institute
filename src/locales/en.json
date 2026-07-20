@@ -12,7 +12,7 @@
   "type": "Type",
   "roles_alias": {
     "manager": "Manager",
-    "student": "Student"
+    "student": "Employee"
   },
   "login": {
     "hint": "Enter your credentials below to login to your account",
@@ -29,14 +29,15 @@
     "enter_user_information": "Enter the user's information below to create his account",
     "role": "Select The Role",
     "confirm_password": "Confirm Password",
-    "password_rule": "Must be at least {{length}} characters long."
+    "password_rule": "Must be at least {{length}} characters long.",
+		"empty_name": "Name cannot be empty"
   },
   "signout": {
     "delete_success": "User #{{identifier}} deleted successfully"
   },
   "institute": {
-    "name": "Tayeb Mohamed Boucenna",
-    "plan": "Institute"
+    "name": "5t0r",
+    "plan": "Workshop"
   },
   "alerts": {
     "signin_success": "Sign in successful with #{{identifier}}",
@@ -45,30 +46,13 @@
     "feature_unavailable": "This feature is not available yet"
   },
   "nav": {
-    "main": {
-      "title": "Platform",
-      "settings": "Settings",
-      "general": "General",
-      "team": "Team",
-      "billing": "Billing",
-      "limits": "Limits"
-    },
     "projects": {
       "items": {
-        "users": "Manage Users"
+        "users": "Manage Workshop"
       },
-      "title": "Projects",
-      "view": "View Project",
-      "share": "Share Project",
-      "delete": "Delete Project"
-    },
-    "secondary": {
-      "support": "Support",
-      "feedback": "Feedback"
+      "title": "Overview"
     },
     "user": {
-      "account": "Account",
-      "notifications": "Notifications",
       "change_language": "Change The Language",
       "languages": "Languages",
       "english": "English",
@@ -83,10 +67,13 @@
     "previous": "Previous",
     "next": "Next",
     "identifier": "Identifier",
+		"name": "Name",
     "copy_id": "Copy User ID",
     "of": "of",
     "rows_selected": "row(s) selected.",
     "delete": "Delete User",
-    "copied": "User ID: {{identifier}} copied to clipboard."
+    "copied": "User ID: {{identifier}} copied to clipboard.",
+    "copy_name": "Copy User Name",
+    "name_copied": "Name: {{name}} copied to clipboard."
   }
 }

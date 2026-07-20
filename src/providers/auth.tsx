@@ -18,7 +18,7 @@ export const AuthProvider = ({
   const fetchUser = async (session: Readonly<Session>) => {
     const { data: user, error: userError } = await supabase
       .from("users")
-      .select("role, identifier")
+      .select("role, identifier, name")
       .eq("id", session.user.id)
       .single<UserAccount>()
 
@@ -46,7 +46,7 @@ export const AuthProvider = ({
       const user = await fetchUser(session)
       if (!user) return
 
-      const userInstance = new User(user.identifier, user.role)
+      const userInstance = new User(user.identifier, user.role, user.name)
       setState({ status: "authenticated", user: userInstance })
     })
 

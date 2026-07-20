@@ -39,6 +39,7 @@ export const Password = ({
             type="password"
             required
             value={password}
+						placeholder="********"
             onChange={(event) => {
               onChange("password", event.target.value)
             }}
@@ -53,6 +54,7 @@ export const Password = ({
             id="confirm-password"
             type="password"
             required
+						placeholder="********"
             value={confirmPassword}
             onChange={(event) => {
               onChange("confirmPassword", event.target.value)

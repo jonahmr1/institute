@@ -28,8 +28,6 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   UnfoldMoreIcon,
-  CheckmarkBadgeIcon,
-  NotificationIcon,
   LogoutIcon,
 } from "@hugeicons/core-free-icons"
 import { useNavigate } from "react-router"
@@ -72,7 +70,15 @@ export const NavUser = ({
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">
+									{user.name
+										.split(" ")
+										.map((part) => part.trim())
+										.filter(Boolean)
+										.map((part) => part[0])
+										.join("")
+									}
+								</AvatarFallback>
               </Avatar>
               <p className="grid flex-1 text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
@@ -103,17 +109,6 @@ export const NavUser = ({
                 </p>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <HugeiconsIcon icon={CheckmarkBadgeIcon} strokeWidth={2} />
-                {t("nav.user.account")}
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <HugeiconsIcon icon={NotificationIcon} strokeWidth={2} />
-                {t("nav.user.notifications")}
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <Select
               onValueChange={(value) => {

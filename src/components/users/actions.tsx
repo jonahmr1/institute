@@ -17,8 +17,10 @@ import { useDir } from "@/hooks/use-dir.ts"
 
 export const ActionsCell = ({
   identifier,
+	name,
 }: {
   readonly identifier: string
+	readonly name: string
 }) => {
   const { t } = useTranslation()
   const dir = useDir()
@@ -57,6 +59,14 @@ export const ActionsCell = ({
           }}
         >
           {t("users.copy_id")}
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            navigator.clipboard.writeText(name).catch(() => undefined)
+            toast.success(t("users.name_copied", { name }))
+          }}
+        >
+          {t("users.copy_name")}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem

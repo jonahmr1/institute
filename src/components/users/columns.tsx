@@ -37,6 +37,22 @@ export const useColumns = (): ColumnDef<UserAccount>[] => {
       enableHiding: false,
     },
     {
+      accessorKey: "name" satisfies keyof UserAccount,
+      filterFn: (row, columnId, filterValue: string) =>
+        row.getValue<number>(columnId).toString().includes(filterValue),
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === "asc")
+          }}
+        >
+          {t("users.name")}
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
+    },
+    {
       accessorKey: "identifier" satisfies keyof UserAccount,
       filterFn: (row, columnId, filterValue: string) =>
         row.getValue<number>(columnId).toString().includes(filterValue),
@@ -69,7 +85,7 @@ export const useColumns = (): ColumnDef<UserAccount>[] => {
     {
       id: "actions",
       header: () => <p>{t("actions")}</p>,
-      cell: ({ row }) => <ActionsCell identifier={row.original.identifier} />,
+      cell: ({ row }) => <ActionsCell identifier={row.original.identifier} name={row.original.name} />,
     },
   ]
 }
