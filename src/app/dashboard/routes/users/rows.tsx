@@ -20,8 +20,17 @@ import {
 } from "@/components/ui/table"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { TableFooter } from "./footer"
-import { Header } from "./header"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuCheckboxItem,
+} from "@/components/ui/dropdown-menu"
+import { Settings } from "lucide-react"
+import { CreateUser } from "@/components/signup"
+import { useDir } from "@/hooks/use-dir.ts"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -37,6 +46,7 @@ export const DataTable = <TData, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
   const { t } = useTranslation()
+	const dir = useDir()
 
   const table = useReactTable({
     data,
@@ -59,7 +69,51 @@ export const DataTable = <TData, TValue>({
 
   return (
     <div className="space-y-2">
-      <Header table={table} />
+      <div className="flex items-center justify-between gap-2">
+				<Input
+					placeholder={t("users.search")}
+					value={
+						// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+						(table.getColumn("identifier")?.getFilterValue() as string) || ""
+					}
+					onChange={(event) =>
+						table.getColumn("identifier")?.setFilterValue(event.target.value)
+					}
+					className="max-w-sm"
+				/>
+				<div className="flex gap-2">
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button variant="outline">
+								<Settings className="mr-2 h-4 w-4" />
+								{t("users.view")}
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent align="end">
+							{table
+								.getAllColumns()
+								.filter((column) => column.getCanHide())
+								.map(
+									(column): React.ReactNode =>
+										column.id !== "identifier" && (
+											<DropdownMenuCheckboxItem
+												dir={dir}
+												key={column.id}
+												className="capitalize"
+												checked={column.getIsVisible()}
+												onCheckedChange={(value) => {
+													column.toggleVisibility(value)
+												}}
+											>
+												{t(column.id)}
+											</DropdownMenuCheckboxItem>
+										),
+								)}
+						</DropdownMenuContent>
+					</DropdownMenu>
+					<CreateUser />
+				</div>
+			</div>
       <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
@@ -108,7 +162,34 @@ export const DataTable = <TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <TableFooter table={table} />
+      <div className="flex items-center justify-between py-4">
+				<p className="flex-1 text-sm text-muted-foreground">
+					{table.getFilteredSelectedRowModel().rows.length} {t("users.of")}{" "}
+					{table.getFilteredRowModel().rows.length} {t("users.rows_selected")}
+				</p>
+				<div className="flex items-center justify-end space-x-2 py-4">
+					<Button
+						variant="outline"
+						size="sm"
+						onClick={() => {
+							table.previousPage()
+						}}
+						disabled={!table.getCanPreviousPage()}
+					>
+						{t("users.previous")}
+					</Button>
+					<Button
+						variant="outline"
+						size="sm"
+						onClick={() => {
+							table.nextPage()
+						}}
+						disabled={!table.getCanNextPage()}
+					>
+						{t("users.next")}
+					</Button>
+				</div>
+			</div>
     </div>
   )
 }
