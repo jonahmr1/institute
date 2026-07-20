@@ -1,4 +1,5 @@
 import { Dashboard } from "@/app/dashboard"
+import { invoices } from "@/app/dashboard/routes/invoices"
 import { Users } from "@/app/dashboard/routes/users"
 import { Role } from "@/types"
 import i18n from "i18next"
@@ -24,5 +25,11 @@ export const ROUTES: Record<
     route: "users",
 		role: 'manager',
     element: Users,
+  },
+  invoices: {
+    label: () => i18n.t("nav.projects.items.invoices"),
+    route: "invoices",
+		role: 'student',
+    element: invoices,
   },
 } as const

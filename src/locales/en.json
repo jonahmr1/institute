@@ -48,9 +48,10 @@
   "nav": {
     "projects": {
       "items": {
-        "users": "Manage Workshop"
+        "users": "Manage Employees",
+        "invoices": "Invoices"
       },
-      "title": "Overview"
+      "title": "Dashboard"
     },
     "user": {
       "change_language": "Change The Language",

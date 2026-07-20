@@ -43,6 +43,10 @@ ReactDOM.createRoot(root()).render(
                     path={ROUTES.users.route}
                     element={<ROUTES.users.element />}
                   />
+                  <Route
+                    path={ROUTES.invoices.route}
+                    element={<ROUTES.invoices.element />}
+                  />
                 </Route>
               </Route>
             </Routes>

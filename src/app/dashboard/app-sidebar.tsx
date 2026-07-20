@@ -22,6 +22,7 @@ import { Link } from "react-router"
 import { useUser } from "@/hooks/use-user"
 import { useTranslation } from "react-i18next"
 import { ROUTES } from "@/lib/routes"
+import { ReceiptText } from "lucide-react"
 
 export const AppSidebar = ({
   ...props
@@ -35,6 +36,14 @@ export const AppSidebar = ({
         icon: <HugeiconsIcon icon={CarParking02Icon} strokeWidth={2} />,
         name: ROUTES.users.label(),
         url: ROUTES.users.route,
+				role: ROUTES.users.role,
+				userRole: user.getRole
+      },
+      {
+        icon: <ReceiptText />,
+        name: ROUTES.invoices.label(),
+        url: ROUTES.invoices.route,
+				role: ROUTES.invoices.role,
 				userRole: user.getRole
       },
     ],
