@@ -16,7 +16,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenu,
-} from "../../../../components/ui/dropdown-menu"
+} from "../ui/dropdown-menu"
 import { MoreHorizontal } from "lucide-react"
 
 export const useColumns = (): ColumnDef<UserAccount>[] => {
