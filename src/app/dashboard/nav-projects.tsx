@@ -25,7 +25,7 @@ import {
 } from "@hugeicons/core-free-icons"
 import { Link } from "react-router"
 import { t } from "i18next"
-import { useDir } from "@/hooks/use-dir.ts";
+import { useDir } from "@/hooks/use-dir.ts"
 
 export const NavProjects = ({
   projects,

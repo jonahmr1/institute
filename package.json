@@ -8,15 +8,13 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "start": "pnpm lint && pnpm format && tauri dev",
+    "start": "bun format && tauri dev",
     "lint": "npx eslint . --quiet",
     "format": "prettier --write src",
-    "supagen": "supabase gen types typescript --project-id sphtvhctzbciykargfjt >",
-    "supatypes": "pnpm supagen src/types/_database.ts && pnpm supagen supabase/functions/_shared/_database.ts",
-    "supapull": "supabase db pull",
+    "supagen": "supabase gen types typescript --project-id eymepngmcmsssdbedscw",
+    "supatypes": "bun supagen src/types/_database.ts && bun supagen supabase/functions/_shared/_database.ts",
     "supadeploy": "supabase functions deploy",
-    "supalink": "supabase link --project-ref sphtvhctzbciykargfjt",
-    "supapush": "supabase db push",
+    "supalink": "supabase link --project-ref eymepngmcmsssdbedscw",
     "supafn": "supabase functions new"
   },
   "dependencies": {
@@ -61,6 +59,7 @@
     "prettier": "^3.8.1",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.57.0",
-    "vite": "^7.0.4"
+    "vite": "^7.0.4",
+		"supabase": "2.109.1"
   }
 }

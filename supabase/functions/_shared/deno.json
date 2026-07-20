@@ -1,6 +1,5 @@
 {
   "imports": {
-    "@supabase/supabase-js": "jsr:@supabase/supabase-js@2",
-    "lenix": "npm:lenix@^1.4.4"
+    "@supabase/supabase-js": "jsr:@supabase/supabase-js@2"
   }
 }

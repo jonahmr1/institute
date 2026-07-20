@@ -10,7 +10,7 @@ import { Settings } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { CreateUser } from "@/components/signup"
 import type { Table } from "@tanstack/react-table"
-import { useDir } from "@/hooks/use-dir.ts";
+import { useDir } from "@/hooks/use-dir.ts"
 
 export const Header = <TData,>({ table }: { readonly table: Table<TData> }) => {
   const { t } = useTranslation()

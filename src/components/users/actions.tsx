@@ -13,7 +13,7 @@ import {
 } from "../ui/dropdown-menu"
 import { MoreHorizontal } from "lucide-react"
 import { User } from "@/lib/user"
-import { useDir } from "@/hooks/use-dir.ts";
+import { useDir } from "@/hooks/use-dir.ts"
 
 export const ActionsCell = ({
   identifier,

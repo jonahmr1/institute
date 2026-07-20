@@ -1,5 +1,5 @@
 import { UserConnection } from '../_shared/index.ts'
-import type { UserAccount } from '../_shared/types.ts'
+import type { Role, UserAccount } from '../_shared/types.ts'
 
 Deno.serve(async (req) => {
   const connection = new UserConnection(req)
@@ -15,7 +15,7 @@ Deno.serve(async (req) => {
   /* Get the users's data from `public.users` */
   const { data: profiles, error: postgresError } = await priviledged
     .from('users')
-    .select('id, role, identifier').overrideTypes<UserAccount[]>()
+    .select('id, role, identifier').overrideTypes<UserAccount<Role>[]>()
   if (postgresError) return new Response(postgresError.message, { status: 400, headers: corsHeaders })
 
   /* Security: only send wanted data */

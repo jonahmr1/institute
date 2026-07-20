@@ -1,5 +1,5 @@
 import { UserConnection } from '../_shared/index.ts'
-import type { CreateUser } from '../_shared/types.ts'
+import type { CreateUser, Role } from '../_shared/types.ts'
 
 Deno.serve(async (req) => {
   const connection = new UserConnection(req)
@@ -7,7 +7,7 @@ Deno.serve(async (req) => {
   if (!success) return response
   const { client, privilege: priviledged, corsHeaders, sendDbBroadcastChanges } = response
 
-  const { identifier, role, password }: CreateUser = await req.json()
+  const { identifier, role, password }: CreateUser<Role> = await req.json()
 
   /* Check if the user already exists before creating him */
   const { data: user, error: clientError } = await client
@@ -19,7 +19,7 @@ Deno.serve(async (req) => {
   if (user?.id) return new Response('User already exists', { status: 400, headers: corsHeaders })
 
   const { data, error } = await priviledged.auth.admin.createUser({
-    email: `${identifier}@institute.local`,
+    email: `${identifier}@example.com`,
     password,
     email_confirm: true,
   })

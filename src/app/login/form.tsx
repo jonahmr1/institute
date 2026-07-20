@@ -30,7 +30,7 @@ export const LoginForm = ({ className }: React.ComponentProps<"form">) => {
       return
     }
     toast.success(t(result, { identifier }))
-    await navigate("/")
+    navigate("/")
   }
   return (
     <form

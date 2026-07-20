@@ -12,7 +12,7 @@ import {
 } from "../ui/select"
 import type { OnChange } from "@/types"
 import { Star } from "../required"
-import { useDir } from "@/hooks/use-dir.ts";
+import { useDir } from "@/hooks/use-dir.ts"
 
 export const RoleSelector = ({ onChange }: { readonly onChange: OnChange }) => {
   const dir = useDir()
@@ -26,8 +26,8 @@ export const RoleSelector = ({ onChange }: { readonly onChange: OnChange }) => {
         dir={dir}
         defaultValue="student"
         onValueChange={(value) => {
-          if (isRole(value)) onChange("role", value);
-        } }
+          if (isRole(value)) onChange("role", value)
+        }}
       >
         <SelectTrigger dir={dir} className="w-full">
           <SelectValue placeholder={t("signup.role")} />
@@ -44,5 +44,5 @@ export const RoleSelector = ({ onChange }: { readonly onChange: OnChange }) => {
         </SelectContent>
       </Select>
     </Field>
-  );
+  )
 }

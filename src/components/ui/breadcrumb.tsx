@@ -3,7 +3,10 @@ import { Slot } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { ArrowRight01Icon, MoreHorizontalCircle01Icon } from "@hugeicons/core-free-icons"
+import {
+  ArrowRight01Icon,
+  MoreHorizontalCircle01Icon,
+} from "@hugeicons/core-free-icons"
 
 function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -22,7 +25,7 @@ function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
       data-slot="breadcrumb-list"
       className={cn(
         "flex flex-wrap items-center gap-1.5 text-xs/relaxed wrap-break-word text-muted-foreground",
-        className
+        className,
       )}
       {...props}
     />
@@ -83,9 +86,7 @@ function BreadcrumbSeparator({
       className={cn("[&>svg]:size-3.5", className)}
       {...props}
     >
-      {children ?? (
-        <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
-      )}
+      {children ?? <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />}
     </li>
   )
 }
@@ -101,7 +102,7 @@ function BreadcrumbEllipsis({
       aria-hidden="true"
       className={cn(
         "flex size-4 items-center justify-center [&>svg]:size-3.5",
-        className
+        className,
       )}
       {...props}
     >
