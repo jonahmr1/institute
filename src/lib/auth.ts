@@ -6,7 +6,7 @@ export const signIn = async (
   password: string,
 ): Response<TranslationKey> => {
   const { error } = await supabase.auth.signInWithPassword({
-    email: `${identifier}@institute.local`,
+    email: `${identifier}@example.com`,
     password,
   })
   if (error) return [false, error.message]
