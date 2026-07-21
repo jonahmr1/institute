@@ -19,6 +19,7 @@ import { useUser } from "@/hooks/use-user"
 import { useDir } from "@/hooks/use-dir.ts"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { CreateUser } from "@/components/signup"
 
 export const Users = () => {
 	const { t } = useTranslation()
@@ -104,7 +105,9 @@ export const Users = () => {
 	return (
 		<div className="h-full w-full flex items-center justify-center">
 			<div className="max-w-4/5 container mx-auto py-10">
-				<DataTable columns={columns} rows={rows} />
+				<DataTable columns={columns} rows={rows} features={[
+					<CreateUser />
+				]} />
 			</div>
 		</div>
 	)

@@ -18,7 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useState } from "react"
+import React, { ReactNode, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -29,7 +29,6 @@ import {
   DropdownMenuCheckboxItem,
 } from "@/components/ui/dropdown-menu"
 import { Settings } from "lucide-react"
-import { CreateUser } from "@/components/signup"
 import { useDir } from "@/hooks/use-dir.ts"
 import { Rows } from "@/types"
 
@@ -44,7 +43,8 @@ export const DataTable = <TData, TValue>({
 		filters
 	},
   columns,
-}: Readonly<DataTableProps<TData, TValue>>) => {
+	features
+}: Readonly<DataTableProps<TData, TValue>> & { features: ReactNode[] }) => {
   const [sorting, setSorting] = useState<SortingState>([])
   const [globalFilter, setGlobalFilter] = useState("")
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -122,7 +122,7 @@ export const DataTable = <TData, TValue>({
 								)}
 						</DropdownMenuContent>
 					</DropdownMenu>
-					<CreateUser />
+					{...features}
 				</div>
 			</div>
       <div className="overflow-hidden rounded-md border">
