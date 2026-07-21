@@ -64,7 +64,6 @@ export const invoices = () => {
       )
       .then(({ error, data }) => {
         if (error) return
-        console.debug(data)
 
         setUrls((prev) => ({
           ...prev,
