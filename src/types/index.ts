@@ -45,3 +45,8 @@ export type DeleteUser = edge.DeleteUser
 
 // eslint-disable-next-line no-unused-vars
 export type OnChange = (key: string, value: string) => void
+
+export interface Rows<T> {
+	data: T[]
+	filters: (keyof T)[]
+}

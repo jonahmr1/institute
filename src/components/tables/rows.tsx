@@ -31,15 +31,19 @@ import {
 import { Settings } from "lucide-react"
 import { CreateUser } from "@/components/signup"
 import { useDir } from "@/hooks/use-dir.ts"
+import { Rows } from "@/types"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  rows: Rows<TData>
 }
 
 export const DataTable = <TData, TValue>({
+	rows: {
+		data,
+		filters
+	},
   columns,
-  data,
 }: Readonly<DataTableProps<TData, TValue>>) => {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])

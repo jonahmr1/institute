@@ -1,7 +1,7 @@
 import { DataTable } from "@/components/tables/rows"
 import { useColumns } from "@/components/tables/columns"
 import { useUsers } from "@/hooks/use-users"
-import type { TranslationKey, UserAccount } from "@/types"
+import type { Rows, UserAccount } from "@/types"
 import { useTranslation } from "react-i18next"
 import { isRole } from "@/lib"
 import { toast } from "sonner"
@@ -26,10 +26,13 @@ export const Users = () => {
 	const currentUser = useUser()
 	const [disabled, setDisabled] = useState(false)
 
-	const data: UserAccount[] = useUsers().map((user) => ({
-		...user,
-		roleLabel: isRole(user.role) ? t(`roles_alias.${user.role}`) : user.role,
-	}))
+	const rows: Rows<UserAccount> = {
+		data: useUsers().map((user) => ({
+			...user,
+			roleLabel: isRole(user.role) ? t(`roles_alias.${user.role}`) : user.role,
+		})),
+		filters: ['identifier', 'name']
+	}
 
 	const columns = useColumns<UserAccount>({
 		columns: [
@@ -101,7 +104,7 @@ export const Users = () => {
 	return (
 		<div className="h-full w-full flex items-center justify-center">
 			<div className="max-w-4/5 container mx-auto py-10">
-				<DataTable columns={columns} data={data} />
+				<DataTable columns={columns} rows={rows} />
 			</div>
 		</div>
 	)
