@@ -70,7 +70,7 @@ export const invoices = () => {
 					cell: ({ row }) => (
 						<Drawer
 							direction={isMobile ? "bottom" : dir === 'ltr' ? 'right' : 'left'}
-							open={open?.[row.original.id] ?? false}
+							open={open[row.original.id]}
 							onOpenChange={state => setOpen(prev => ({ ...prev, [row.original.id]: state }))}
 						>
 							<DrawerTrigger asChild>
@@ -81,7 +81,7 @@ export const invoices = () => {
 									<DrawerTitle>{t('invoices.info')}</DrawerTitle>
 								</DrawerHeader>
 								<div className="flex justify-center mx-5">
-									{urls?.[row.original.image] ? <img src={urls[row.original.image]} className="rounded-md" /> : <CarFront className="size-full" />}
+									{urls[row.original.image] ? <img src={urls[row.original.image]} className="rounded-md" /> : <CarFront className="size-full" />}
 								</div>
 							</DrawerContent>
 						</Drawer>

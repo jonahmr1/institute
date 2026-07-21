@@ -34,7 +34,7 @@ import { toast } from "sonner"
 import { useTranslation } from "react-i18next"
 import { useDir } from "@/hooks/use-dir"
 import { User } from "@/lib/user"
-import { Role } from "@/types"
+import type { Role } from "@/types"
 
 export const NavUser = ({
   user,
