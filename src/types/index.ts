@@ -1,5 +1,5 @@
 import type { User } from "@/lib/user"
-import type { Database } from "./_database"
+import type { Database } from "./database.ts"
 import type { Direction } from "radix-ui"
 import type { Translations } from "@/locales"
 import type * as edge from "./shared"

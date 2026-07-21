@@ -1,4 +1,4 @@
-import type { Database } from '../../../src/types/_database.ts'
+import type { Database } from '../../../src/types/database.ts'
 import type * as edge from '../../../src/types/shared.ts'
 
 export type Role = Database['public']['Tables']['users']['Row']['role']
