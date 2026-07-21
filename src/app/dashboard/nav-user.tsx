@@ -109,7 +109,7 @@ export const NavUser = ({
                 </Avatar>
                 <p className="grid flex-1 rtl:text-right text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
-									<span className="truncate text-xs">{user.role} - {user.email}</span>
+									<span className="truncate text-xs">{t(`roles_alias.${user.role}`)} - {user.email}</span>
                 </p>
               </div>
             </DropdownMenuLabel>

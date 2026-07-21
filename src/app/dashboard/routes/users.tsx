@@ -63,7 +63,7 @@ export const Users = () => {
 					<DropdownMenuItem
 						onClick={() => {
 							navigator.clipboard.writeText(row.original.identifier).catch(() => undefined)
-							toast.success(t("users.copied", { identifier: row.original }))
+							toast.success(t("users.copied", { identifier: row.original.identifier }))
 						}}
 					>
 						{t("users.copy_id")}
@@ -71,7 +71,7 @@ export const Users = () => {
 					<DropdownMenuItem
 						onClick={() => {
 							navigator.clipboard.writeText(row.original.name).catch(() => undefined)
-							toast.success(t("users.name_copied", { name }))
+							toast.success(t("users.name_copied", { name: row.original.name }))
 						}}
 					>
 						{t("users.copy_name")}

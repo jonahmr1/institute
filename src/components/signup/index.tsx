@@ -90,7 +90,7 @@ export const CreateUser = () => {
         >
           <FieldGroup>
 						<Field>
-							<FieldLabel>Name <Star /></FieldLabel>
+							<FieldLabel>{t(('users.name'))} <Star /></FieldLabel>
 							<Input
 								id="name"
 								name="name"

@@ -69,16 +69,16 @@ export const invoices = () => {
 				overrides: {
 					cell: ({ row }) => (
 						<Drawer
-							direction={isMobile ? "bottom" : "right"}
+							direction={isMobile ? "bottom" : dir === 'ltr' ? 'right' : 'left'}
 							open={open?.[row.original.id] ?? false}
 							onOpenChange={state => setOpen(prev => ({ ...prev, [row.original.id]: state }))}
 						>
 							<DrawerTrigger asChild>
 								<Button variant="link">{row.original.id}</Button>
 							</DrawerTrigger>
-							<DrawerContent>
+							<DrawerContent dir='ltr'>
 								<DrawerHeader>
-									<DrawerTitle>Invoice Management</DrawerTitle>
+									<DrawerTitle>{t('invoices.info')}</DrawerTitle>
 								</DrawerHeader>
 								<div className="flex justify-center mx-5">
 									{urls?.[row.original.image] ? <img src={urls[row.original.image]} className="rounded-md" /> : <CarFront className="size-full" />}

@@ -3,16 +3,46 @@
   "cancel": "إلغاء",
   "create": "إنشاء",
   "password": "كلمة المرور",
-  "identification": "رقم التعريفي",
-  "dashboard": "الرئيسية",
+  "identification": "الرقم التعريفي",
+  "dashboard": "لوحة التحكم",
   "roles": "الأدوار",
   "role": "الدور",
+	"roleLabel": "الدور",
   "actions": "الإجراءات",
-  "RoleLabel": "الدور",
   "type": "نوع",
+  "of": "من",
+  "search": "بحث...",
+  "view": "عرض",
+  "no_results": "لا نتائج.",
+  "previous": "السابق",
+  "next": "التالي",
+  "rows_selected": "صف/صفوف محددة.",
+	"created_at": "تاريخ الإنشاء",
   "roles_alias": {
     "manager": "مدير",
     "student": "موظف"
+  },
+  "invoices": {
+    "create": "إنشاء فاتورة جديدة",
+    "id": "معرّف الفاتورة",
+    "customer": "العميل",
+    "seller": "البائع",
+    "date": "تاريخ الإنشاء",
+    "copy_id": "نسخ معرّف الفاتورة",
+    "copy_customer": "نسخ اسم العميل",
+    "copy_seller": "نسخ معرّف البائع",
+    "customer_name_copied": "تم نسخ اسم العميل إلى الحافظة: {{name}}",
+    "seller_id_copied": "تم نسخ معرّف البائع إلى الحافظة: {{id}}",
+    "enter_info": "أدخل معلومات الفاتورة المتعلقة بهذه الفاتورة فقط",
+    "failed": "فشل إنشاء الفاتورة",
+    "upload_failed": "فشل رفع صورة المركبة",
+    "success": "تم إنشاء الفاتورة بنجاح",
+    "failed_fetch": "فشل جلب الفواتير",
+    "failed_delete": "فشل حذف الفاتورة",
+    "success_delete": "تم حذف الفاتورة {{id}} بنجاح",
+    "delete": "حذف الفاتورة",
+    "veh_name": "المركبة",
+		"info": "معلومات الفاتورة"
   },
   "login": {
     "hint": "أدخل بياناتك أدناه لتسجيل الدخول إلى حسابك",
@@ -21,15 +51,16 @@
     "title": "تسجيل الدخول إلى حسابك"
   },
   "signup": {
-    "identification_mismatch": "رقم التعريفي يجب أن يتكون بالظبط من {{identifierLength}} أحرف",
-    "password_mismatch": "كلمة المرور يجب أن تكون على الأقل {{passwordLength}} أحرف",
+    "identification_mismatch": "يجب أن يتكون الرقم التعريفي من {{identifierLength}} أحرف بالضبط",
+    "password_mismatch": "يجب أن تكون كلمة المرور على الأقل من {{passwordLength}} أحرف",
     "passwords_unmatched": "كلمات المرور غير متطابقة",
     "success": "تم إنشاء المستخدم #{{identifier}} بنجاح",
     "create_user": "إنشاء مستخدم جديد",
-    "role": "حدد دور المستخدم",
     "enter_user_information": "أدخل معلومات المستخدم أدناه لإنشاء حسابه",
+    "role": "حدد دور المستخدم",
     "confirm_password": "تأكيد كلمة المرور",
-    "password_rule": "يجب أن تكون على الأقل {{length}} أحرف."
+    "password_rule": "يجب أن تكون على الأقل {{length}} أحرف.",
+    "empty_name": "لا يمكن أن يكون الاسم فارغًا"
   },
   "signout": {
     "delete_success": "تم حذف المستخدم #{{identifier}} بنجاح"
@@ -42,18 +73,17 @@
     "signin_success": "تم تسجيل الدخول بنجاح إلى #{{identifier}}",
     "logout_success": "تم تسجيل الخروج بنجاح",
     "delete_yourself": "لا يمكنك حذف نفسك",
-    "feature_unavailable": "هذه الميزة غير متوفرة حتى الان"
+    "feature_unavailable": "هذه الميزة غير متوفرة حتى الآن"
   },
   "nav": {
     "projects": {
       "items": {
-        "users": "إدارة الورشة"
+        "users": "إدارة الموظفين",
+        "invoices": "الفواتير"
       },
-      "title": "الرائيسية"
+      "title": "لوحة التحكم"
     },
     "user": {
-      "account": "الحساب",
-      "notifications": "الإشعارات",
       "change_language": "تغيير اللغة",
       "languages": "اللغات",
       "english": "English",
@@ -62,16 +92,12 @@
     }
   },
   "users": {
-    "search": "بحث في المعرفات...",
-    "view": "عرض",
-    "no_results": "لا نتائج.",
-    "previous": "السابق",
-    "next": "التالي",
-    "identifier": "المعرف",
-    "copy_id": "نسخ معرف المستخدم",
-    "of": "من",
-    "rows_selected": "الصفوف المختارة.",
+    "identifier": "المعرّف",
+    "name": "الاسم",
+    "copy_id": "نسخ معرّف المستخدم",
     "delete": "حذف المستخدم",
-    "copied": "نسخ معرف المستخدم #{{identifier}} إلى الحافظة."
+    "copied": "تم نسخ معرّف المستخدم #{{identifier}} إلى الحافظة.",
+    "copy_name": "نسخ اسم المستخدم",
+    "name_copied": "تم نسخ الاسم: {{name}} إلى الحافظة."
   }
 }
