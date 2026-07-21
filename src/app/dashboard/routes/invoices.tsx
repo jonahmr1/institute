@@ -11,23 +11,30 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenu,
 } from "@/components/ui/dropdown-menu"
-import { MoreHorizontal } from "lucide-react"
+import { CarFront, MoreHorizontal } from "lucide-react"
 import { useUser } from "@/hooks/use-user"
 import { useDir } from "@/hooks/use-dir.ts"
-import { useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { CreateInvoice } from "@/components/invoices"
 import { useInvoices } from "@/hooks/use-invoices"
 import { Invoice } from "@/lib/invoice"
+import { DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, Drawer } from "@/components/ui/drawer"
+import { useIsMobile } from "@/hooks/use-mobile"
+import { supabase } from "@/lib/supabase"
 
 export const invoices = () => {
 	const { t } = useTranslation()
 	const dir = useDir()
 	const user = useUser()
 	const [disabled, setDisabled] = useState(false)
+	const [open, setOpen] = useState<Record<string, boolean>>({})
+	const isMobile = useIsMobile()
+	const [urls, setUrls] = useState<Record<string, string>>({})
+	const invoices = useInvoices()
 
-	const rows: Rows<DbInvoice> = {
-		data: useInvoices().map(invoice => ({
+	const rows = useMemo<Rows<DbInvoice>>(() => ( {
+		data: invoices.map(invoice => ({
 			...invoice,
 			created_at: new Intl.DateTimeFormat("en-US", {
 				dateStyle: "medium",
@@ -35,7 +42,24 @@ export const invoices = () => {
 			}).format(new Date(invoice.created_at))
 		})),
 		filters: ['id', 'customer', 'veh_name', 'seller']
-	}
+	}), [invoices])
+
+	useEffect(() => {
+		if (!invoices.length) return
+
+		supabase.storage
+		.from('vehicle-images')
+		.createSignedUrls(invoices.map(rowData => rowData.image), 5)
+		.then(({ error, data }) => {
+			if (error) return
+			console.debug(data)
+
+			setUrls((prev) => ({
+				...prev,
+				...Object.fromEntries(data.map(({ path, signedUrl }) => [path, signedUrl])),
+			}))
+		})
+	}, [invoices])
 
 	const columns = useColumns<DbInvoice>({
 		columns: [
@@ -43,11 +67,27 @@ export const invoices = () => {
 				accessorKey: 'id',
 				label: 'invoices.id',
 				overrides: {
-					cell: ({ row }) => <Button
-						variant='link'
-						className="cursor-pointer"
-						onClick={() => {}}
-					>{row.original.id}</Button>,
+					cell: ({ row }) => (
+						<Drawer
+							direction={isMobile ? "bottom" : "right"}
+							open={open?.[row.original.id] ?? false}
+							onOpenChange={state => setOpen(prev => ({ ...prev, [row.original.id]: state }))}
+						>
+							<DrawerTrigger asChild>
+								<Button variant="link">{row.original.id}</Button>
+							</DrawerTrigger>
+							<DrawerContent>
+								<DrawerHeader>
+									<DrawerTitle>Invoice Management</DrawerTitle>
+								</DrawerHeader>
+								<div className="flex justify-center">
+									<div className="w-1/2">
+										{urls?.[row.original.image] ? <img src={urls[row.original.image]} /> : <CarFront className="size-full" />}
+									</div>
+								</div>
+							</DrawerContent>
+						</Drawer>
+					)
 				},
 			},
 			{
