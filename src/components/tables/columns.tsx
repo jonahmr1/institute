@@ -13,6 +13,7 @@ export const useColumns = <T,>({
 	columns: {
 		accessorKey: string
 		label: TranslationKey
+    overrides?: Pick<ColumnDef<T>, "cell">
 	}[]
 	Actions: (row: Row<T>) => ReactNode
 }): ColumnDef<T>[] => {
@@ -44,7 +45,7 @@ export const useColumns = <T,>({
       enableSorting: false,
       enableHiding: false,
     },
-    ...columns.map(({ accessorKey, label }) => (
+    ...columns.map(({ accessorKey, label, overrides }) => (
 			{
 				accessorKey,
 				filterFn: (
@@ -71,6 +72,7 @@ export const useColumns = <T,>({
 							<ArrowUpDown className="ml-2 h-4 w-4" />
 						</Button>
 					),
+					...overrides
 				}
 			)
 		),

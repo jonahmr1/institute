@@ -42,6 +42,13 @@ export const invoices = () => {
 			{
 				accessorKey: 'id',
 				label: 'invoices.id',
+				overrides: {
+					cell: ({ row }) => <Button
+						variant='link'
+						className="cursor-pointer"
+						onClick={() => {}}
+					>{row.original.id}</Button>,
+				},
 			},
 			{
 				accessorKey: 'customer',
@@ -105,7 +112,7 @@ export const invoices = () => {
 								toast.success(t(result, data))
 								return
 							}
-							toast.error(t(result, data))
+							toast.error(t(result))
 							setDisabled(false)
 						}}
 					>
