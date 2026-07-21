@@ -130,8 +130,8 @@ export const DataTable = <TData, TValue>({
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
+                {headerGroup.headers.map((header, i) => (
+                  <TableHead key={header.id} className={i > 0 ? "px-0" : ""}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(

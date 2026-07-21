@@ -47,32 +47,33 @@ export const useColumns = <T,>({
     ...columns.map(({ accessorKey, label }) => (
 			{
 				accessorKey,
-      filterFn: (
-				row: Row<T>,
-				columnId: string,
-				filterValue: string
-			) =>
-        String(row.getValue<unknown>(columnId) ?? "").includes(filterValue),
-				header: ({
-					column,
-				}: {
-					column: {
-						toggleSorting: (desc?: boolean) => void
-						getIsSorted: () => "asc" | "desc" | false
-					}
-				}) => (
-					<Button
-						variant="ghost"
-						onClick={() => {
-							column.toggleSorting(column.getIsSorted() === "asc")
-						}}
-					>
-						{t(label)}
-						<ArrowUpDown className="ml-2 h-4 w-4" />
-					</Button>
-				),
-			}
-		)),
+				filterFn: (
+					row: Row<T>,
+					columnId: string,
+					filterValue: string
+				) =>
+					String(row.getValue<unknown>(columnId) ?? "").includes(filterValue),
+					header: ({
+						column,
+					}: {
+						column: {
+							toggleSorting: (desc?: boolean) => void
+							getIsSorted: () => "asc" | "desc" | false
+						}
+					}) => (
+						<Button
+							variant="ghost"
+							onClick={() => {
+								column.toggleSorting(column.getIsSorted() === "asc")
+							}}
+						>
+							{t(label)}
+							<ArrowUpDown className="ml-2 h-4 w-4" />
+						</Button>
+					),
+				}
+			)
+		),
     {
       id: "actions",
       header: () => <p>{t("actions")}</p>,
