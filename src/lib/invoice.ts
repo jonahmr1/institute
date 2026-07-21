@@ -1,6 +1,6 @@
 import { supabase } from "./supabase"
 import type { SupaInvoice } from '../types/shared'
-import { DbInvoice, Events, Response, TranslationKey } from "@/types"
+import { DbInvoice, Response, TranslationKey } from "@/types"
 
 export class Invoice {
 	private readonly customer: string
@@ -56,19 +56,12 @@ export class Invoice {
 	}
 
 	public static async delete(id: string): Response<TranslationKey> {
-		const { error } = await supabase
-			.from('invoices')
-			.delete()
-			.eq('id', id)
-
-		if (error) return [false, 'invoices.failed_delete']
-
-		const result = await supabase.channel("db-changes").send({
-			type: "broadcast",
-			event: 'invoices-management' satisfies Events,
-			payload: {},
+		const { error } = await supabase.functions.invoke('delete-user', {
+			body: {
+				id
+			}
 		})
-		if (result !== 'ok') return [false, 'invoices.broadcast_failed', { result }]
+		if (error) return [false, 'invoices.failed_delete']
 
 		return [true, 'invoices.success_delete', { id }]
 	}

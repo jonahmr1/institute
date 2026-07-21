@@ -11,8 +11,7 @@
     "start": "bun format && tauri dev",
     "lint": "npx eslint . --quiet",
     "format": "prettier --write src",
-    "supagen": "supabase gen types typescript --project-id eymepngmcmsssdbedscw",
-    "supatypes": "bun supagen src/types/_database.ts && bun supagen supabase/functions/_shared/_database.ts",
+    "supatypes": "bun supabase gen types typescript --project-id eymepngmcmsssdbedscw > src/types/_database.ts",
     "supadeploy": "supabase functions deploy",
     "supalink": "supabase link --project-ref eymepngmcmsssdbedscw",
     "supafn": "supabase functions new"

@@ -8,21 +8,20 @@ export const useInvoices = () => {
   const [invoices, setInvoices] = useState<DbInvoice[]>([])
 
   useEffect(() => {
-    const handler = () => {
-      Invoice.getInvoices()
-        .then(([success, data]) => {
-          if (success) setInvoices(data)
-        })
-        .catch(() => undefined)
+    const handler = async () => {
+      const [success, data] = await Invoice.getInvoices()
+			if (!success) return
+
+			setInvoices(data)
     }
     handler()
     const channel = supabase
-      .channel("db-changes")
+			.channel("db-changes")
       .on("broadcast", { event: "invoices-management" satisfies Events }, handler)
       .subscribe()
 
     return () => {
-      supabase.removeChannel(channel).catch(() => undefined)
+			supabase.removeChannel(channel).catch(() => undefined)
     }
   }, [])
 
