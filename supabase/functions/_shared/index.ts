@@ -11,6 +11,7 @@ export class UserConnection {
   private static readonly ALLOWED_ORIGINS = [
     'http://localhost:1420',
     'http://localhost:4173',
+		'https://institute-8vgy.vercel.app'
   ] as const
 
   constructor(private readonly req: Request) {
