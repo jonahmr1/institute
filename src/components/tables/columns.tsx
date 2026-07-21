@@ -72,7 +72,7 @@ export const useColumns = <T,>({
     {
       id: "actions",
       header: () => <p>{t("actions")}</p>,
-      cell: async ({ row }) => Actions(row),
+      cell: ({ row }) => Actions(row),
     },
   ]
 }
