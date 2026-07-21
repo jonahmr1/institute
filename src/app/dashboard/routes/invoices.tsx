@@ -49,7 +49,7 @@ export const invoices = () => {
 
 		supabase.storage
 		.from('vehicle-images')
-		.createSignedUrls(invoices.map(rowData => rowData.image), 5)
+		.createSignedUrls(invoices.map(rowData => rowData.image), 60)
 		.then(({ error, data }) => {
 			if (error) return
 			console.debug(data)
@@ -80,10 +80,8 @@ export const invoices = () => {
 								<DrawerHeader>
 									<DrawerTitle>Invoice Management</DrawerTitle>
 								</DrawerHeader>
-								<div className="flex justify-center">
-									<div className="w-1/2">
-										{urls?.[row.original.image] ? <img src={urls[row.original.image]} /> : <CarFront className="size-full" />}
-									</div>
+								<div className="flex justify-center mx-5">
+									{urls?.[row.original.image] ? <img src={urls[row.original.image]} className="rounded-md" /> : <CarFront className="size-full" />}
 								</div>
 							</DrawerContent>
 						</Drawer>
