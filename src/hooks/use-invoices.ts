@@ -18,10 +18,7 @@ export const useInvoices = () => {
     handler()
     const channel = supabase
       .channel("db-changes")
-      .on("broadcast", { event: "invoices-management" satisfies Events }, () => {
-				console.debug(true)
-				handler()
-			})
+      .on("broadcast", { event: "invoices-management" satisfies Events }, handler)
       .subscribe()
 
     return () => {
