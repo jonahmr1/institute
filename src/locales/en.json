@@ -6,6 +6,7 @@
   "identification": "Identification Number",
   "dashboard": "Dashboard",
   "roles": "Roles",
+  "role": "Role",
   "roleLabel": "Role",
   "actions": "Actions",
   "type": "Type",
@@ -17,7 +18,6 @@
 	"next": "Next",
 	"rows_selected": "row(s) selected.",
 	"created_at": "Creation Date",
-	"rolelabel": "Role",
 	"roles_alias": {
     "manager": "Manager",
     "student": "Employee"

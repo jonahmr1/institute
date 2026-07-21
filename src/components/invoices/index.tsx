@@ -9,7 +9,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog"
-import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field"
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import React, { useState } from "react"
 import { toast } from "sonner"
 import { useTranslation } from "react-i18next"
