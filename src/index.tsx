@@ -32,7 +32,7 @@ ReactDOM.createRoot(root()).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <DirectionProvider>
+        <DirectionProvider dir="ltr">
           <TooltipProvider>
             <Toaster />
             <Routes>
