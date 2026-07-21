@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "tauri-app",
+  "productName": "Los Santos Workshop",
   "version": "0.1.0",
-  "identifier": "lenix.dev",
+  "identifier": "workshop.lenix.dev",
   "build": {
     "beforeDevCommand": "bun dev",
     "devUrl": "http://localhost:1420",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "tauri-app",
+        "title": "Los Santos Workshop",
         "width": 800,
         "height": 600
       }
