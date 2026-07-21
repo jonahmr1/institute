@@ -1,0 +1,110 @@
+name: release-tauri
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-latest
+            target: macos
+          - platform: windows-latest
+            target: windows
+          - platform: ubuntu-22.04
+            target: linux
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Linux dependencies
+        if: matrix.target == 'linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            build-essential \
+            curl \
+            wget \
+            file \
+            libssl-dev \
+            libgtk-3-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build Tauri app
+        run: bun tauri build
+
+      - name: Upload macOS artifact
+        if: matrix.target == 'macos'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tauri-macos
+          path: src-tauri/target/release/bundle/dmg/*
+
+      - name: Upload Windows artifact
+        if: matrix.target == 'windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tauri-windows
+          path: src-tauri/target/release/bundle/msi/*
+
+      - name: Upload Linux artifact
+        if: matrix.target == 'linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tauri-linux
+          path: src-tauri/target/release/bundle/*
+
+  release:
+    needs: build
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Download macOS artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tauri-macos
+          path: artifacts/macos
+
+      - name: Download Windows artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tauri-windows
+          path: artifacts/windows
+
+      - name: Download Linux artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tauri-linux
+          path: artifacts/linux
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/macos/**
+            artifacts/windows/**
+            artifacts/linux/**
