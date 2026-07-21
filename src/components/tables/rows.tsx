@@ -131,7 +131,7 @@ export const DataTable = <TData, TValue>({
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header, i) => (
-                  <TableHead key={header.id} className={i > 0 ? "px-0" : ""}>
+                  <TableHead key={header.id} className={i === 0 || i === headerGroup.headers.length - 1 ? "" : "px-0"}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
