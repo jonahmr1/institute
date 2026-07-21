@@ -38,6 +38,7 @@
 		"success": "Invoice was created successfully",
 		"failed_fetch": "Failed to get invoices",
 		"failed_delete": "Failed to delete invoice",
+		"broadcast_failed": "Failed to broadcast invoice deletion, response: {{result}}",
 		"success_delete": "Invoice {{id}} deleted successfully",
 		"delete": "Delete invoice",
 		"veh_name": "Vehicle"

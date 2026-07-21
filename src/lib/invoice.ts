@@ -68,8 +68,8 @@ export class Invoice {
 			event: 'invoices-management' satisfies Events,
 			payload: {},
 		})
-		if (result !== 'ok') return [false, 'invoices.failed_delete', { result }]
+		if (result !== 'ok') return [false, 'invoices.broadcast_failed', { result }]
 
-		return [true, 'invoices.success_delete']
+		return [true, 'invoices.success_delete', { id }]
 	}
 }
