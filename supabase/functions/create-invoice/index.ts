@@ -20,8 +20,8 @@ export default {
 			.insert({ customer, image, veh_name: vehName, seller: identifier })
 		if (error) return new Response(error.message, { status: 400, headers: corsHeaders })
 
-		// 	const [ok, result] = await sendDbBroadcastChanges()
-		// if (!ok) return result
+			const [ok, result] = await sendDbBroadcastChanges("invoices-management")
+		if (!ok) return result
 		
 		return new Response('OK', { status: 200, headers: corsHeaders })
 	})

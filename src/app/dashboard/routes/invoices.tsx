@@ -105,7 +105,7 @@ export const invoices = () => {
 								toast.success(t(result, data))
 								return
 							}
-							toast.error(t(result))
+							toast.error(t(result, data))
 							setDisabled(false)
 						}}
 					>

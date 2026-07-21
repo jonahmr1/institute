@@ -30,7 +30,7 @@ Deno.serve(async (req) => {
     .insert({ id: data.user.id, name, identifier, role })
   if (profileError) return new Response(profileError.message, { status: 400, headers: corsHeaders })
 
-  const [ok, result] = await sendDbBroadcastChanges()
+  const [ok, result] = await sendDbBroadcastChanges("users-management")
   if (!ok) return result
 
   return new Response('OK', { status: 200, headers: corsHeaders })

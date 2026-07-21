@@ -23,7 +23,7 @@ Deno.serve(async (req) => {
   const { error } = await privilege.auth.admin.deleteUser(data.id, markAsDeletedInstead)
   if (error) return new Response(error.message, { status: 400, headers: corsHeaders })
 
-  const [ok, result] = await sendDbBroadcastChanges()
+  const [ok, result] = await sendDbBroadcastChanges("users-management")
   if (!ok) return result
 
   return new Response("OK", { status: 200, headers: corsHeaders })

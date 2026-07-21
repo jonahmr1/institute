@@ -1,6 +1,6 @@
 import { supabase } from "./supabase"
 import type { SupaInvoice } from '../types/shared'
-import { DbInvoice, Response, TranslationKey } from "@/types"
+import { DbInvoice, Events, Response, TranslationKey } from "@/types"
 
 export class Invoice {
 	private readonly customer: string
@@ -62,6 +62,13 @@ export class Invoice {
 			.eq('id', id)
 
 		if (error) return [false, 'invoices.failed_delete']
+
+		const result = await supabase.channel("db-changes").send({
+			type: "broadcast",
+			event: 'invoices-management' satisfies Events,
+			payload: {},
+		})
+		if (result !== 'ok') return [false, 'invoices.failed_delete', { result }]
 
 		return [true, 'invoices.success_delete']
 	}
