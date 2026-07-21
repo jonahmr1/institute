@@ -14,17 +14,18 @@ export class Invoice {
 	}
 
 	public async create(sellerIdentifier: string): Response<TranslationKey> {
+		const imageUUID = this.id()
 		const { error } = await supabase.functions.invoke('create-invoice', {
 			body: {
 				customer: this.customer,
-				image: this.id(),
+				image: imageUUID,
 				vehName: this.vehName,
 				identifier: sellerIdentifier
 			} satisfies SupaInvoice
 		})
 		if (error) return [false, 'invoices.failed']
 
-		const [success, response] = await this.upload()
+		const [success, response] = await this.upload(imageUUID)
 		if (!success) return [false, response]
 		return [true, 'invoices.success']
 	}
@@ -33,11 +34,11 @@ export class Invoice {
 		return `${crypto.randomUUID()}`
 	}
 
-	private async upload(): Response<TranslationKey | undefined> {
+	private async upload(imageUUID: string): Response<TranslationKey | undefined> {
 		const { error } = await supabase.storage
 		.from('vehicle-images')
 		.upload(
-			this.id(),
+			imageUUID,
 			this.image,
 			{
 				contentType: this.image.type,
@@ -56,7 +57,7 @@ export class Invoice {
 	}
 
 	public static async delete(id: string): Response<TranslationKey> {
-		const { error } = await supabase.functions.invoke('delete-user', {
+		const { error } = await supabase.functions.invoke('delete-invoice', {
 			body: {
 				id
 			}
