@@ -25,10 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { HugeiconsIcon } from "@hugeicons/react"
-import {
-  UnfoldMoreIcon,
-  LogoutIcon,
-} from "@hugeicons/core-free-icons"
+import { UnfoldMoreIcon, LogoutIcon } from "@hugeicons/core-free-icons"
 import { useNavigate } from "react-router"
 import { toast } from "sonner"
 import { useTranslation } from "react-i18next"
@@ -43,7 +40,7 @@ export const NavUser = ({
     name: string
     email: string
     avatar: string
-		role: Role
+    role: Role
   }
 }) => {
   const { isMobile } = useSidebar()
@@ -61,12 +58,12 @@ export const NavUser = ({
     await navigate("/login")
   }
 
-	const monogram = user.name
-		.split(" ")
-		.map((part) => part.trim())
-		.filter(Boolean)
-		.map((part) => part[0])
-		.join("")
+  const monogram = user.name
+    .split(" ")
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .map((part) => part[0])
+    .join("")
 
   return (
     <SidebarMenu>
@@ -80,8 +77,8 @@ export const NavUser = ({
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
                 <AvatarFallback className="rounded-lg">
-									{monogram}
-								</AvatarFallback>
+                  {monogram}
+                </AvatarFallback>
               </Avatar>
               <p className="grid flex-1 text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
@@ -104,11 +101,15 @@ export const NavUser = ({
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">{monogram}</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">
+                    {monogram}
+                  </AvatarFallback>
                 </Avatar>
                 <p className="grid flex-1 rtl:text-right text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
-									<span className="truncate text-xs">{t(`roles_alias.${user.role}`)} - {user.email}</span>
+                  <span className="truncate text-xs">
+                    {t(`roles_alias.${user.role}`)} - {user.email}
+                  </span>
                 </p>
               </div>
             </DropdownMenuLabel>

@@ -10,26 +10,26 @@ export const ROUTES: Record<
   {
     label: () => string
     route: string
-		role: Role
+    role: Role
     element: () => JSX.Element
   }
 > = {
   "/": {
     label: () => i18n.t("dashboard"),
     route: "/",
-		role: 'student',
+    role: "student",
     element: Dashboard,
   },
   users: {
     label: () => i18n.t("nav.projects.items.users"),
     route: "users",
-		role: 'manager',
+    role: "manager",
     element: Users,
   },
   invoices: {
     label: () => i18n.t("nav.projects.items.invoices"),
     route: "invoices",
-		role: 'student',
+    role: "student",
     element: invoices,
   },
 } as const

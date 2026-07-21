@@ -10,18 +10,22 @@ export const useInvoices = () => {
   useEffect(() => {
     const handler = async () => {
       const [success, data] = await Invoice.getInvoices()
-			if (!success) return
+      if (!success) return
 
-			setInvoices(data)
+      setInvoices(data)
     }
     handler()
     const channel = supabase
-			.channel("db-changes")
-      .on("broadcast", { event: "invoices-management" satisfies Events }, handler)
+      .channel("db-changes")
+      .on(
+        "broadcast",
+        { event: "invoices-management" satisfies Events },
+        handler,
+      )
       .subscribe()
 
     return () => {
-			supabase.removeChannel(channel).catch(() => undefined)
+      supabase.removeChannel(channel).catch(() => undefined)
     }
   }, [])
 

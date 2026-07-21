@@ -2,7 +2,7 @@ import type { User } from "@/lib/user"
 import type { Database } from "./_database"
 import type { Direction } from "radix-ui"
 import type { Translations } from "@/locales"
-import type * as edge from './shared'
+import type * as edge from "./shared"
 
 export type Role = Database["public"]["Tables"]["users"]["Row"]["role"]
 export type Permission = Database["public"]["Enums"]["user_permissions"]
@@ -47,8 +47,8 @@ export type DeleteUser = edge.DeleteUser
 export type OnChange = (key: string, value: string) => void
 
 export interface Rows<T> {
-	data: T[]
-	filters: (keyof T)[]
+  data: T[]
+  filters: (keyof T)[]
 }
 
-export type DbInvoice = Database['public']['Tables']['invoices']['Row']
+export type DbInvoice = Database["public"]["Tables"]["invoices"]["Row"]

@@ -7,15 +7,15 @@ import { useTranslation } from "react-i18next"
 import type { ReactNode } from "react"
 
 export const useColumns = <T,>({
-	columns,
-	Actions
+  columns,
+  Actions,
 }: {
-	columns: {
-		accessorKey: string
-		label: TranslationKey
+  columns: {
+    accessorKey: string
+    label: TranslationKey
     overrides?: Pick<ColumnDef<T>, "cell">
-	}[]
-	Actions: (row: Row<T>) => ReactNode
+  }[]
+  Actions: (row: Row<T>) => ReactNode
 }): ColumnDef<T>[] => {
   const { t } = useTranslation()
   return [
@@ -45,41 +45,34 @@ export const useColumns = <T,>({
       enableSorting: false,
       enableHiding: false,
     },
-    ...columns.map(({ accessorKey, label, overrides }) => (
-			{
-				accessorKey,
-				filterFn: (
-					row: Row<T>,
-					columnId: string,
-					filterValue: string
-				) =>
-					String(row.getValue<unknown>(columnId) ?? "").includes(filterValue),
-					header: ({
-						column,
-					}: {
-						column: {
-							toggleSorting: (desc?: boolean) => void
-							getIsSorted: () => "asc" | "desc" | false
-						}
-					}) => (
-						<Button
-							variant="ghost"
-							onClick={() => {
-								column.toggleSorting(column.getIsSorted() === "asc")
-							}}
-						>
-							{t(label)}
-							<ArrowUpDown className="ml-2 h-4 w-4" />
-						</Button>
-					),
-					...overrides
-				}
-			)
-		),
+    ...columns.map(({ accessorKey, label, overrides }) => ({
+      accessorKey,
+      filterFn: (row: Row<T>, columnId: string, filterValue: string) =>
+        String(row.getValue<unknown>(columnId) ?? "").includes(filterValue),
+      header: ({
+        column,
+      }: {
+        column: {
+          toggleSorting: (desc?: boolean) => void
+          getIsSorted: () => "asc" | "desc" | false
+        }
+      }) => (
+        <Button
+          variant="ghost"
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === "asc")
+          }}
+        >
+          {t(label)}
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
+      ...overrides,
+    })),
     {
       id: "actions",
       header: () => <p>{t("actions")}</p>,
-      cell: async ({ row }) => Actions(row)
+      cell: async ({ row }) => Actions(row),
     },
   ]
 }

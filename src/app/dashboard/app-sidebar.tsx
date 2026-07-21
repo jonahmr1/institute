@@ -14,10 +14,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { HugeiconsIcon } from "@hugeicons/react"
-import {
-  CommandIcon,
-  CarParking02Icon,
-} from "@hugeicons/core-free-icons"
+import { CommandIcon, CarParking02Icon } from "@hugeicons/core-free-icons"
 import { Link } from "react-router"
 import { useUser } from "@/hooks/use-user"
 import { useTranslation } from "react-i18next"
@@ -36,22 +33,22 @@ export const AppSidebar = ({
         icon: <HugeiconsIcon icon={CarParking02Icon} strokeWidth={2} />,
         name: ROUTES.users.label(),
         url: ROUTES.users.route,
-				role: ROUTES.users.role,
-				userRole: user.getRole
+        role: ROUTES.users.role,
+        userRole: user.getRole,
       },
       {
         icon: <ReceiptText />,
         name: ROUTES.invoices.label(),
         url: ROUTES.invoices.route,
-				role: ROUTES.invoices.role,
-				userRole: user.getRole
+        role: ROUTES.invoices.role,
+        userRole: user.getRole,
       },
     ],
     user: {
       avatar: "/avatars/shadcn.jpg",
       email: user.getIdentifier,
       name: user.getName,
-			role: user.getRole
+      role: user.getRole,
     },
   }
   return (

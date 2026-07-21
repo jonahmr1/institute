@@ -25,29 +25,30 @@ import { Spinner } from "../ui/spinner"
 export const CreateUser = () => {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
-	const [loading, setLoading] = useState(false)
-  const [{ name, identifier, role, password, confirmPassword }, setUser] = useState<{
-    name: string
-    identifier: string
-    role: Role
-    password: string
-    confirmPassword: string
-  }>({
-    name: "",
-    identifier: "",
-    role: "student" satisfies Role,
-    password: "",
-    confirmPassword: "",
-  })
+  const [loading, setLoading] = useState(false)
+  const [{ name, identifier, role, password, confirmPassword }, setUser] =
+    useState<{
+      name: string
+      identifier: string
+      role: Role
+      password: string
+      confirmPassword: string
+    }>({
+      name: "",
+      identifier: "",
+      role: "student" satisfies Role,
+      password: "",
+      confirmPassword: "",
+    })
   const onChange: OnChange = (key: string, value: string) => {
     setUser((prev) => ({ ...prev, [key]: value }))
   }
 
   const handleSubmit = async (event: React.SyntheticEvent): Promise<void> => {
     event.preventDefault()
-		setLoading(true)
+    setLoading(true)
     const [success, result, data] = await User.createUser({
-			name,
+      name,
       identifier,
       role,
       password,
@@ -55,8 +56,8 @@ export const CreateUser = () => {
     })
     if (!success) {
       toast.error(t(result, data))
-			setLoading(false)
-			return
+      setLoading(false)
+      return
     }
     setUser({
       name: "",
@@ -67,7 +68,7 @@ export const CreateUser = () => {
     })
     toast.success(t(result, data))
     setOpen(false)
-		setLoading(false)
+    setLoading(false)
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -89,20 +90,22 @@ export const CreateUser = () => {
           }}
         >
           <FieldGroup>
-						<Field>
-							<FieldLabel>{t(('users.name'))} <Star /></FieldLabel>
-							<Input
-								id="name"
-								name="name"
-								value={name}
-								type="text"
-								onChange={(event) => {
-									onChange("name", event.target.value)
-								}}
-								required
-								placeholder="Lenix Dev"
-							/>
-						</Field>
+            <Field>
+              <FieldLabel>
+                {t("users.name")} <Star />
+              </FieldLabel>
+              <Input
+                id="name"
+                name="name"
+                value={name}
+                type="text"
+                onChange={(event) => {
+                  onChange("name", event.target.value)
+                }}
+                required
+                placeholder="Lenix Dev"
+              />
+            </Field>
             <Identifier {...{ identifier, setUser, onChange }} />
             <RoleSelector {...{ setUser, onChange }} />
             <Password {...{ password, confirmPassword, onChange }} />
@@ -113,7 +116,8 @@ export const CreateUser = () => {
             <Button variant="outline">{t("cancel")}</Button>
           </DialogClose>
           <Button type="submit" form="dialog">
-            {loading && <Spinner />}{t("create")}
+            {loading && <Spinner />}
+            {t("create")}
           </Button>
         </DialogFooter>
       </DialogContent>

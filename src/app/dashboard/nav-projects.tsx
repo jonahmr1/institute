@@ -18,23 +18,28 @@ export const NavProjects = ({
     name: string
     url: string
     icon: React.ReactNode
-		role: Role
-		userRole: Role
+    role: Role
+    userRole: Role
   }[]
 }) => (
-	<SidebarGroup className="group-data-[collapsible=icon]:hidden">
-		<SidebarGroupLabel>{t("nav.projects.title")}</SidebarGroupLabel>
-		<SidebarMenu>
-			{projects.map((item) => (
-				<SidebarMenuItem key={item.name}>
-					<SidebarMenuButton asChild {...(item.userRole !== 'manager' && item.role === 'manager' ? { 'aria-disabled': 'true' } : {})}>
-						<Link to={item.url}>
-							{item.icon}
-							<span>{item.name}</span>
-						</Link>
-					</SidebarMenuButton>
-				</SidebarMenuItem>
-			))}
-		</SidebarMenu>
-	</SidebarGroup>
+  <SidebarGroup className="group-data-[collapsible=icon]:hidden">
+    <SidebarGroupLabel>{t("nav.projects.title")}</SidebarGroupLabel>
+    <SidebarMenu>
+      {projects.map((item) => (
+        <SidebarMenuItem key={item.name}>
+          <SidebarMenuButton
+            asChild
+            {...(item.userRole !== "manager" && item.role === "manager"
+              ? { "aria-disabled": "true" }
+              : {})}
+          >
+            <Link to={item.url}>
+              {item.icon}
+              <span>{item.name}</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      ))}
+    </SidebarMenu>
+  </SidebarGroup>
 )
