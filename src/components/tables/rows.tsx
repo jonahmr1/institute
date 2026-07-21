@@ -71,7 +71,7 @@ export const DataTable = <TData, TValue>({
     <div className="space-y-2">
       <div className="flex items-center justify-between gap-2">
 				<Input
-					placeholder={t("users.search")}
+					placeholder={t("search")}
 					value={
 						// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 						(table.getColumn("identifier")?.getFilterValue() as string) || ""
@@ -86,7 +86,7 @@ export const DataTable = <TData, TValue>({
 						<DropdownMenuTrigger asChild>
 							<Button variant="outline">
 								<Settings className="mr-2 h-4 w-4" />
-								{t("users.view")}
+								{t("view")}
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end">
@@ -155,7 +155,7 @@ export const DataTable = <TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  {t("users.no_results")}
+                  {t("no_results")}
                 </TableCell>
               </TableRow>
             )}
@@ -164,8 +164,8 @@ export const DataTable = <TData, TValue>({
       </div>
       <div className="flex items-center justify-between py-4">
 				<p className="flex-1 text-sm text-muted-foreground">
-					{table.getFilteredSelectedRowModel().rows.length} {t("users.of")}{" "}
-					{table.getFilteredRowModel().rows.length} {t("users.rows_selected")}
+					{table.getFilteredSelectedRowModel().rows.length} {t("of")}{" "}
+					{table.getFilteredRowModel().rows.length} {t("rows_selected")}
 				</p>
 				<div className="flex items-center justify-end space-x-2 py-4">
 					<Button
@@ -176,7 +176,7 @@ export const DataTable = <TData, TValue>({
 						}}
 						disabled={!table.getCanPreviousPage()}
 					>
-						{t("users.previous")}
+						{t("previous")}
 					</Button>
 					<Button
 						variant="outline"
@@ -186,7 +186,7 @@ export const DataTable = <TData, TValue>({
 						}}
 						disabled={!table.getCanNextPage()}
 					>
-						{t("users.next")}
+						{t("next")}
 					</Button>
 				</div>
 			</div>

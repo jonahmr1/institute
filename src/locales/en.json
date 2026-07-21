@@ -10,7 +10,14 @@
   "RoleLabel": "Role",
   "actions": "Actions",
   "type": "Type",
-  "roles_alias": {
+	"of": "of",
+	"search": "Search...",
+	"view": "View",
+	"no_results": "No results.",
+	"previous": "Previous",
+	"next": "Next",
+	"rows_selected": "row(s) selected.",
+	"roles_alias": {
     "manager": "Manager",
     "student": "Employee"
   },
@@ -62,16 +69,9 @@
     }
   },
   "users": {
-    "search": "Search identifiers...",
-    "view": "View",
-    "no_results": "No results.",
-    "previous": "Previous",
-    "next": "Next",
     "identifier": "Identifier",
 		"name": "Name",
     "copy_id": "Copy User ID",
-    "of": "of",
-    "rows_selected": "row(s) selected.",
     "delete": "Delete User",
     "copied": "User ID: {{identifier}} copied to clipboard.",
     "copy_name": "Copy User Name",
