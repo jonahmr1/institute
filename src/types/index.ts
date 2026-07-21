@@ -50,3 +50,5 @@ export interface Rows<T> {
 	data: T[]
 	filters: (keyof T)[]
 }
+
+export type DbInvoice = Database['public']['Tables']['invoices']['Row']

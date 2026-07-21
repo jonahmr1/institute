@@ -29,13 +29,17 @@
 		"date": "Date Created",
 		"copy_id": "Copy Invoice ID",
 		"copy_customer": "Copy customer name",
-		"copy_seller": "Copy seller name",
+		"copy_seller": "Copy seller id",
 		"customer_name_copied": "Customer name copied to clipboard: {{name}}",
-		"seller_name_copied": "Seller name copied to clipboard: {{name}}",
+		"seller_id_copied": "Seller id copied to clipboard: {{id}}",
 		"enter_info": "Enter the invoice informations that is related to this invoice only",
 		"failed": "Failed to create an invoice",
 		"upload_failed": "Failed to upload vehicle image",
-		"success": "Invoice was created successfully"
+		"success": "Invoice was created successfully",
+		"failed_fetch": "Failed to get invoices",
+		"failed_delete": "Failed to delete invoice",
+		"success_delete": "Invoice {{id}} deleted successfully",
+		"delete": "Delete invoice"
 	},
   "login": {
     "hint": "Enter your credentials below to login to your account",

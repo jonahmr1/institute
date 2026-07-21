@@ -1,11 +1,8 @@
 import { DataTable } from "@/components/tables/rows"
 import { useColumns } from "@/components/tables/columns"
-import { useUsers } from "@/hooks/use-users"
-import type { Rows, UserAccount } from "@/types"
+import type { DbInvoice, Rows,  } from "@/types"
 import { useTranslation } from "react-i18next"
-import { isRole } from "@/lib"
 import { toast } from "sonner"
-import { User } from "@/lib/user"
 import {
 	DropdownMenuTrigger,
 	DropdownMenuContent,
@@ -20,22 +17,27 @@ import { useDir } from "@/hooks/use-dir.ts"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { CreateInvoice } from "@/components/invoices"
+import { useInvoices } from "@/hooks/use-invoices"
+import { Invoice } from "@/lib/invoice"
 
 export const invoices = () => {
 	const { t } = useTranslation()
 	const dir = useDir()
-	const currentUser = useUser()
+	const user = useUser()
 	const [disabled, setDisabled] = useState(false)
 
-	const rows: Rows<UserAccount> = {
-		data: useUsers().map((user) => ({
-			...user,
-			roleLabel: isRole(user.role) ? t(`roles_alias.${user.role}`) : user.role,
+	const rows: Rows<DbInvoice> = {
+		data: useInvoices().map(invoice => ({
+			...invoice,
+			created_at: new Intl.DateTimeFormat("en-US", {
+				dateStyle: "medium",
+				timeStyle: "short",
+			}).format(new Date(invoice.created_at))
 		})),
-		filters: ['identifier', 'name']
+		filters: ['customer', 'veh_name', 'seller']
 	}
 
-	const columns = useColumns<UserAccount>({
+	const columns = useColumns<DbInvoice>({
 		columns: [
 			{
 				accessorKey: 'id',
@@ -50,7 +52,7 @@ export const invoices = () => {
 				label: 'invoices.seller',
 			},
 			{
-				accessorKey: 'date',
+				accessorKey: 'created_at',
 				label: 'invoices.date',
 			},
 		],
@@ -66,39 +68,35 @@ export const invoices = () => {
 					<DropdownMenuLabel>{t("actions")}</DropdownMenuLabel>
 					<DropdownMenuItem
 						onClick={() => {
-							navigator.clipboard.writeText(row.original.identifier).catch(() => undefined)
-							toast.success(t("invoices.copied", { identifier: row.original }))
+							navigator.clipboard.writeText(row.original.id).catch(() => undefined)
+							toast.success(t("invoices.copied", { identifier: row.original.id }))
 						}}
 					>
 						{t("invoices.copy_id")}
 					</DropdownMenuItem>
 					<DropdownMenuItem
 						onClick={() => {
-							navigator.clipboard.writeText(row.original.name).catch(() => undefined)
-							toast.success(t("users.customer_name_copied", { name }))
+							navigator.clipboard.writeText(row.original.customer).catch(() => undefined)
+							toast.success(t("users.customer_name_copied", { name: row.original.customer }))
 						}}
 					>
 						{t("invoices.copy_customer")}
 					</DropdownMenuItem>
 					<DropdownMenuItem
 						onClick={() => {
-							navigator.clipboard.writeText(row.original.name).catch(() => undefined)
-							toast.success(t("users.seller_name_copied", { name }))
+							navigator.clipboard.writeText(row.original.seller.toString()).catch(() => undefined)
+							toast.success(t("users.seller_id_copied", { id: row.original.seller }))
 						}}
 					>
 						{t("invoices.copy_seller")}
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem
-						disabled={disabled}
+						disabled={disabled || user.getRole !== 'manager'}
 						variant="destructive"
 						onClick={async () => {
-							if (currentUser.getIdentifier === row.original.identifier) {
-								toast.error(t("alerts.delete_yourself"))
-								return
-							}
 							setDisabled(true)
-							const [success, result, data] = await User.deleteUser(row.original.identifier)
+							const [success, result, data] = await Invoice.delete(row.original.id)
 							if (success) {
 								toast.success(t(result, data))
 								return
@@ -107,7 +105,7 @@ export const invoices = () => {
 							setDisabled(false)
 						}}
 					>
-						{t("users.delete")}
+						{t("invoices.delete")}
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>

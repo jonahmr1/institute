@@ -1,6 +1,6 @@
 import { supabase } from "./supabase"
-import type { Invoice as IInvoice, SupaInvoice } from '../types/shared'
-import { Response, TranslationKey } from "@/types"
+import type { SupaInvoice } from '../types/shared'
+import { DbInvoice, Response, TranslationKey } from "@/types"
 
 export class Invoice {
 	private readonly customer: string
@@ -46,5 +46,23 @@ export class Invoice {
 		)
 		if (error) return [false, 'invoices.upload_failed']
 		return [true, undefined]
+	}
+
+	public static async getInvoices(): Response<DbInvoice[], TranslationKey> {
+		const { error, data } = await supabase.from('invoices').select()
+		if (error) return [false, 'invoices.failed_fetch']
+
+		return [true, data]
+	}
+
+	public static async delete(id: string): Response<TranslationKey> {
+		const { error } = await supabase
+			.from('invoices')
+			.delete()
+			.eq('id', id)
+
+		if (error) return [false, 'invoices.failed_delete']
+
+		return [true, 'invoices.success_delete']
 	}
 }
