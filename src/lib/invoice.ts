@@ -13,31 +13,31 @@ export class Invoice {
 		this.vehName = vehName
 	}
 
-	public async create(sellerName: string, sellerIdentifier: string): Response<TranslationKey> {
+	public async create(sellerIdentifier: string): Response<TranslationKey> {
 		const { error } = await supabase.functions.invoke('create-invoice', {
 			body: {
 				customer: this.customer,
-				image: this.path(sellerName),
+				image: this.id(),
 				vehName: this.vehName,
 				identifier: sellerIdentifier
 			} satisfies SupaInvoice
 		})
 		if (error) return [false, 'invoices.failed']
 
-		const [success, response] = await this.upload(sellerName)
+		const [success, response] = await this.upload()
 		if (!success) return [false, response]
 		return [true, 'invoices.success']
 	}
 
-	private path(seller: string) {
-		return `${this.vehName}-${this.customer}-${seller}-${this.image.name}`
+	private id() {
+		return `${crypto.randomUUID()}`
 	}
 
-	private async upload(seller: string): Response<TranslationKey | undefined> {
+	private async upload(): Response<TranslationKey | undefined> {
 		const { error } = await supabase.storage
 		.from('vehicle-images')
 		.upload(
-			this.path(seller),
+			this.id(),
 			this.image,
 			{
 				contentType: this.image.type,

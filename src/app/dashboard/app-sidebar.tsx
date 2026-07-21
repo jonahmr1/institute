@@ -51,6 +51,7 @@ export const AppSidebar = ({
       avatar: "/avatars/shadcn.jpg",
       email: user.getIdentifier,
       name: user.getName,
+			role: user.getRole
     },
   }
   return (

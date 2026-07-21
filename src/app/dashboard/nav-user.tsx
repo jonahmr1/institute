@@ -35,6 +35,7 @@ import { toast } from "sonner"
 import { useTranslation } from "react-i18next"
 import { useDir } from "@/hooks/use-dir"
 import { User } from "@/lib/user"
+import { Role } from "@/types"
 
 export const NavUser = ({
   user,
@@ -43,6 +44,7 @@ export const NavUser = ({
     name: string
     email: string
     avatar: string
+		role: Role
   }
 }) => {
   const { isMobile } = useSidebar()
@@ -59,6 +61,14 @@ export const NavUser = ({
     toast.success(t(result))
     await navigate("/login")
   }
+
+	const monogram = user.name
+		.split(" ")
+		.map((part) => part.trim())
+		.filter(Boolean)
+		.map((part) => part[0])
+		.join("")
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -71,13 +81,7 @@ export const NavUser = ({
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
                 <AvatarFallback className="rounded-lg">
-									{user.name
-										.split(" ")
-										.map((part) => part.trim())
-										.filter(Boolean)
-										.map((part) => part[0])
-										.join("")
-									}
+									{monogram}
 								</AvatarFallback>
               </Avatar>
               <p className="grid flex-1 text-sm leading-tight">
@@ -101,11 +105,11 @@ export const NavUser = ({
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">{monogram}</AvatarFallback>
                 </Avatar>
                 <p className="grid flex-1 rtl:text-right text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+									<span className="truncate text-xs">{user.role} - {user.email}</span>
                 </p>
               </div>
             </DropdownMenuLabel>

@@ -44,7 +44,7 @@ export const CreateInvoice = () => {
 			return
 		}
 		
-		const [success, result, data] = await new Invoice(customer, image, vehName).create(user.getName, user.getIdentifier)
+		const [success, result, data] = await new Invoice(customer, image, vehName).create(user.getIdentifier)
 		if (!success) {
 			toast.error(t(result, data))
 			setLoading(false)
@@ -96,7 +96,6 @@ export const CreateInvoice = () => {
 						</Field>
 						<Field>
 							<FieldLabel>Vehicle Image <Star /></FieldLabel>
-							<FieldDescription>Please make sure the image name does not contain any spaces</FieldDescription>
 							<Input
 								id="image"
 								name="image"
