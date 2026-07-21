@@ -1,7 +1,7 @@
 import {
   type ColumnDef,
   type SortingState,
-  type ColumnFiltersState,
+  type Row,
   type VisibilityState,
   flexRender,
   getCoreRowModel,
@@ -46,11 +46,22 @@ export const DataTable = <TData, TValue>({
   columns,
 }: Readonly<DataTableProps<TData, TValue>>) => {
   const [sorting, setSorting] = useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [globalFilter, setGlobalFilter] = useState("")
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
   const { t } = useTranslation()
 	const dir = useDir()
+
+  const searchableColumns = filters.map(String)
+  const globalFilterFn = (row: Row<TData>, _columnIds: string, filterValue: string) => {
+    const needle = String(filterValue ?? "").toLowerCase()
+    if (!needle) {
+      return true
+    }
+    return searchableColumns.some((columnId) => {
+      return String(row.getValue<unknown>(columnId) ?? "").toLowerCase().includes(needle)
+    })
+  }
 
   const table = useReactTable({
     data,
@@ -58,14 +69,15 @@ export const DataTable = <TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn,
     onRowSelectionChange: setRowSelection,
     onColumnVisibilityChange: setColumnVisibility,
     state: {
       sorting,
-      columnFilters,
+      globalFilter,
       rowSelection,
       columnVisibility,
     },
@@ -76,13 +88,8 @@ export const DataTable = <TData, TValue>({
       <div className="flex items-center justify-between gap-2">
 				<Input
 					placeholder={t("search")}
-					value={
-						// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
-						(table.getColumn("identifier")?.getFilterValue() as string) || ""
-					}
-					onChange={(event) =>
-						table.getColumn("identifier")?.setFilterValue(event.target.value)
-					}
+					value={globalFilter}
+					onChange={(event) => setGlobalFilter(event.target.value)}
 					className="max-w-sm"
 				/>
 				<div className="flex gap-2">
@@ -99,7 +106,7 @@ export const DataTable = <TData, TValue>({
 								.filter((column) => column.getCanHide())
 								.map(
 									(column): React.ReactNode =>
-										column.id !== "identifier" && (
+										!filters.includes(column.id as Extract<keyof TData, string>) && (
 											<DropdownMenuCheckboxItem
 												dir={dir}
 												key={column.id}
