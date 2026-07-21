@@ -1,6 +1,6 @@
 import { supabase } from "./supabase"
 import type { SupaInvoice } from '../types/shared'
-import { DbInvoice, Response, TranslationKey } from "@/types"
+import type { DbInvoice, Response, TranslationKey } from "@/types"
 
 export class Invoice {
 	private readonly customer: string
@@ -31,7 +31,7 @@ export class Invoice {
 	}
 
 	private id() {
-		return `${crypto.randomUUID()}`
+		return crypto.randomUUID()
 	}
 
 	private async upload(imageUUID: string): Response<TranslationKey | undefined> {

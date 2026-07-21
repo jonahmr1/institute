@@ -18,7 +18,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import React, { ReactNode, useState } from "react"
+import type { ReactNode} from "react";
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -30,7 +31,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Settings } from "lucide-react"
 import { useDir } from "@/hooks/use-dir.ts"
-import { Rows } from "@/types"
+import type { Rows } from "@/types"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -58,9 +59,7 @@ export const DataTable = <TData, TValue>({
     if (!needle) {
       return true
     }
-    return searchableColumns.some((columnId) => {
-      return String(row.getValue<unknown>(columnId) ?? "").toLowerCase().includes(needle)
-    })
+    return searchableColumns.some((columnId) => String(row.getValue<unknown>(columnId) ?? "").toLowerCase().includes(needle))
   }
 
   const table = useReactTable({
@@ -89,7 +88,7 @@ export const DataTable = <TData, TValue>({
 				<Input
 					placeholder={t("search")}
 					value={globalFilter}
-					onChange={(event) => setGlobalFilter(event.target.value)}
+					onChange={(event) => { setGlobalFilter(event.target.value); }}
 					className="max-w-sm"
 				/>
 				<div className="flex gap-2">

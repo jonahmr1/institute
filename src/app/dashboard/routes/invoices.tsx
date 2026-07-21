@@ -71,7 +71,7 @@ export const invoices = () => {
 						<Drawer
 							direction={isMobile ? "bottom" : dir === 'ltr' ? 'right' : 'left'}
 							open={open[row.original.id]}
-							onOpenChange={state => setOpen(prev => ({ ...prev, [row.original.id]: state }))}
+							onOpenChange={state => { setOpen(prev => ({ ...prev, [row.original.id]: state })); }}
 						>
 							<DrawerTrigger asChild>
 								<Button variant="link">{row.original.id}</Button>

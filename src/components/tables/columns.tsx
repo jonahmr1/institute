@@ -4,7 +4,7 @@ import type { TranslationKey } from "@/types"
 import type { ColumnDef, Row } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import { useTranslation } from "react-i18next"
-import { ReactNode } from "react"
+import type { ReactNode } from "react"
 
 export const useColumns = <T,>({
 	columns,
@@ -79,7 +79,7 @@ export const useColumns = <T,>({
     {
       id: "actions",
       header: () => <p>{t("actions")}</p>,
-      cell: ({ row }) => Actions(row)
+      cell: async ({ row }) => Actions(row)
     },
   ]
 }

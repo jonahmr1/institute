@@ -1,7 +1,7 @@
 import { Invoice } from "@/lib/invoice"
 import { supabase } from "@/lib/supabase"
-import { DbInvoice } from "@/types"
-import { Events } from "@/types/shared"
+import type { DbInvoice } from "@/types"
+import type { Events } from "@/types/shared"
 import { useState, useEffect } from "react"
 
 export const useInvoices = () => {

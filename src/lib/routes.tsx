@@ -1,7 +1,7 @@
 import { Dashboard } from "@/app/dashboard"
 import { invoices } from "@/app/dashboard/routes/invoices"
 import { Users } from "@/app/dashboard/routes/users"
-import { Role } from "@/types"
+import type { Role } from "@/types"
 import i18n from "i18next"
 import type { JSX } from "react"
 
