@@ -21,6 +21,22 @@
     "manager": "Manager",
     "student": "Employee"
   },
+	"invoices": {
+		"create": "Create a new invoice",
+		"id": "Invoice ID",
+		"customer": "Customer",
+		"seller": "Seller",
+		"date": "Date Created",
+		"copy_id": "Copy Invoice ID",
+		"copy_customer": "Copy customer name",
+		"copy_seller": "Copy seller name",
+		"customer_name_copied": "Customer name copied to clipboard: {{name}}",
+		"seller_name_copied": "Seller name copied to clipboard: {{name}}",
+		"enter_info": "Enter the invoice informations that is related to this invoice only",
+		"failed": "Failed to create an invoice",
+		"upload_failed": "Failed to upload vehicle image",
+		"success": "Invoice was created successfully"
+	},
   "login": {
     "hint": "Enter your credentials below to login to your account",
     "forgotPassword": "Reset Password?",

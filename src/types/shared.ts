@@ -15,3 +15,13 @@ export interface UserAccount<Role, Label = string | unknown> {
 export interface DeleteUser {
   identifier: string
 }
+
+export interface Invoice<T extends string | File | null> {
+	customer: string
+	image: T
+	vehName: string
+}
+
+export interface SupaInvoice extends Invoice<string> {
+	identifier: string
+}
