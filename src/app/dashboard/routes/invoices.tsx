@@ -34,7 +34,7 @@ export const invoices = () => {
 				timeStyle: "short",
 			}).format(new Date(invoice.created_at))
 		})),
-		filters: ['customer', 'veh_name', 'seller']
+		filters: ['id', 'customer', 'veh_name', 'seller']
 	}
 
 	const columns = useColumns<DbInvoice>({
@@ -46,6 +46,10 @@ export const invoices = () => {
 			{
 				accessorKey: 'customer',
 				label: 'invoices.customer',
+			},
+			{
+				accessorKey: 'veh_name',
+				label: 'invoices.veh_name',
 			},
 			{
 				accessorKey: 'seller',
