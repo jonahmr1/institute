@@ -60,7 +60,7 @@ export const invoices = () => {
       .from("vehicle-images")
       .createSignedUrls(
         invoices.map((rowData) => rowData.image),
-        60,
+        60 * 60,
       )
       .then(({ error, data }) => {
         if (error) return
@@ -155,7 +155,7 @@ export const invoices = () => {
                 .writeText(row.original.customer)
                 .catch(() => undefined)
               toast.success(
-                t("users.customer_name_copied", {
+                t("invoices.customer_name_copied", {
                   name: row.original.customer,
                 }),
               )
@@ -169,7 +169,7 @@ export const invoices = () => {
                 .writeText(row.original.seller.toString())
                 .catch(() => undefined)
               toast.success(
-                t("users.seller_id_copied", { id: row.original.seller }),
+                t("invoices.seller_id_copied", { id: row.original.seller }),
               )
             }}
           >
