@@ -7,18 +7,25 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { toast } from "sonner"
 import { signIn } from "@/lib/auth"
 import { useTranslation } from "react-i18next"
 import { User } from "@/lib/user"
+import { AuthContext } from "@/contexts/auth"
 
 export const LoginForm = ({ className }: React.ComponentProps<"form">) => {
   const [identifier, setIdentifier] = useState("")
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
+  const auth = useContext(AuthContext)
   const { t } = useTranslation()
+
+  useEffect(() => {
+    if (auth.status === "authenticated") navigate("/", { replace: true })
+  }, [auth.status, navigate])
+
   const isIdentifierInvalid =
     identifier.length > 0 && identifier.length !== User.static.identifier
 
@@ -30,7 +37,6 @@ export const LoginForm = ({ className }: React.ComponentProps<"form">) => {
       return
     }
     toast.success(t(result, { identifier }))
-    navigate("/")
   }
   return (
     <form

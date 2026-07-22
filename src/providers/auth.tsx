@@ -4,7 +4,6 @@ import { User } from "@/lib/user"
 import type { AuthState, UserAccount } from "@/types"
 import { AuthContext } from "@/contexts/auth"
 import type { Session } from "@supabase/supabase-js"
-import { redirect } from "react-router"
 
 export const AuthProvider = ({
   children,
@@ -72,7 +71,6 @@ export const AuthProvider = ({
 
         setTimeout(() => {
           supabase.auth.signOut({ scope: "local" }).catch(() => undefined)
-					redirect('/')
         }, 0)
         },
       )
