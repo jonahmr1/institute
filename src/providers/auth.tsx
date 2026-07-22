@@ -30,9 +30,7 @@ export const AuthProvider = ({
   }
 
   useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_, session) => {
+    const handleSession = async (session: Readonly<Session> | null) => {
       if (!session) {
         setState({ status: "unauthenticated", user: null })
         return
@@ -48,6 +46,15 @@ export const AuthProvider = ({
 
       const userInstance = new User(user.identifier, user.role, user.name)
       setState({ status: "authenticated", user: userInstance })
+    }
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_, session) => {
+      // Do not await Supabase calls inside this callback; it runs while the auth lock is held.
+      setTimeout(() => {
+        handleSession(session).catch(() => undefined)
+      }, 0)
     })
 
     return (): void => {
