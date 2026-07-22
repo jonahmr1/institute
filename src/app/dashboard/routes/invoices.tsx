@@ -99,7 +99,7 @@ export const invoices = () => {
                   {urls[row.original.image] ? (
 										<img
 										src={urls[row.original.image]}
-											className="rounded-md aspect-square object-contain"
+											className="rounded-md aspect-square object-contain pointer-events-none"
 										/>
                   ) : (
                     <CarFront className="size-full" />
