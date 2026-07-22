@@ -42,7 +42,9 @@
     "success_delete": "Invoice {{id}} deleted successfully",
     "delete": "Delete invoice",
     "veh_name": "Vehicle",
-    "info": "Invoice Management"
+    "info": "Invoice Management",
+    "vehicle_image": "Vehicle Image",
+		"vehicle_name": "Vehicle Name"
   },
   "login": {
     "hint": "Enter your credentials below to login to your account",

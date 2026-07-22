@@ -89,7 +89,7 @@ export const CreateInvoice = () => {
           <FieldGroup>
             <Field>
               <FieldLabel>
-                Customer <Star />
+                {t('invoices.customer')} <Star />
               </FieldLabel>
               <Input
                 id="customer"
@@ -105,7 +105,7 @@ export const CreateInvoice = () => {
             </Field>
             <Field>
               <FieldLabel>
-                Vehicle Image <Star />
+                {t('invoices.vehicle_image')} <Star />
               </FieldLabel>
               <Input
                 id="image"
@@ -121,7 +121,7 @@ export const CreateInvoice = () => {
               />
             </Field>
             <Field>
-              <FieldLabel>Vehicle Name</FieldLabel>
+              <FieldLabel>{t('invoices.vehicle_name')}</FieldLabel>
               <Input
                 id="vehName"
                 name="vehName"
