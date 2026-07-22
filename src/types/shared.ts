@@ -1,4 +1,4 @@
-export type Events = "users-management" | "invoices-management"
+export type Events = "users-management" | "invoices-management" | "user-deleted"
 export interface CreateUser<Role> {
   name: string
   identifier: string

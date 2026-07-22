@@ -40,7 +40,7 @@ export class UserConnection {
       client: SupabaseClient
       privilege: SupabaseClient
       corsHeaders: typeof UserConnection.prototype.corsHeaders
-      sendDbBroadcastChanges: (event: Events) => Promise<RealtimeRegisteration>
+      sendDbBroadcastChanges: (event: Events, payload?: Record<string, string>) => Promise<RealtimeRegisteration>
     }]
   > {
     if (this.req.method === 'OPTIONS') return [false, new Response(null, { status: 204, headers: this.corsHeaders })]
@@ -82,11 +82,14 @@ export class UserConnection {
      * Register the admin to the database's changes
      * @return
     */
-    const sendDbBroadcastChanges = async (event: Events): Promise<RealtimeRegisteration> => {
+    const sendDbBroadcastChanges = async (
+      event: Events,
+      payload: Record<string, string> = {},
+    ): Promise<RealtimeRegisteration> => {
       const result = await client.channel("db-changes").send({
         type: "broadcast",
         event,
-        payload: {},
+        payload,
       })
       if (result !== 'ok') return [false, new Response(result, { status: 500, headers: this.corsHeaders })]
       return [true]

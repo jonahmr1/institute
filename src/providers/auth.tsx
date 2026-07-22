@@ -30,6 +30,8 @@ export const AuthProvider = ({
   }
 
   useEffect(() => {
+    let activeUserId: string | null = null
+
     const handleSession = async (session: Readonly<Session> | null) => {
       if (!session) {
         setState({ status: "unauthenticated", user: null })
@@ -51,14 +53,32 @@ export const AuthProvider = ({
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_, session) => {
+      activeUserId = session?.user.id ?? null
+
       // Do not await Supabase calls inside this callback; it runs while the auth lock is held.
       setTimeout(() => {
         handleSession(session).catch(() => undefined)
       }, 0)
     })
 
+    const channel = supabase
+      .channel("db-changes")
+      .on(
+        "broadcast",
+        { event: "user-deleted" },
+        ({ payload }: { payload: { userId?: string } }) => {
+        if (payload.userId !== activeUserId) return
+
+        setTimeout(() => {
+          supabase.auth.signOut({ scope: "local" }).catch(() => undefined)
+        }, 0)
+        },
+      )
+      .subscribe()
+
     return (): void => {
       subscription.unsubscribe()
+      supabase.removeChannel(channel).catch(() => undefined)
     }
   }, [])
 

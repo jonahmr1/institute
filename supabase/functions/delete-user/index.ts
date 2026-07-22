@@ -32,5 +32,10 @@ Deno.serve(async (req) => {
   const [ok, result] = await sendDbBroadcastChanges("users-management")
   if (!ok) return result
 
+  const [userDeleted, logoutResult] = await sendDbBroadcastChanges("user-deleted", {
+    userId: data.id,
+  })
+  if (!userDeleted) return logoutResult
+
   return new Response("OK", { status: 200, headers: corsHeaders })
 })
