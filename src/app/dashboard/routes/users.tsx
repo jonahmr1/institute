@@ -17,16 +17,24 @@ import {
 import { MoreHorizontal } from "lucide-react"
 import { useUser } from "@/hooks/use-user"
 import { useDir } from "@/hooks/use-dir.ts"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { CreateUser } from "@/components/signup"
+import { useNavigate } from "react-router"
 
 export const Users = () => {
+  const user = useUser()
+	const navigate = useNavigate()
   const { t } = useTranslation()
   const dir = useDir()
-  const currentUser = useUser()
   const [disabled, setDisabled] = useState(false)
   const { users, isLoading } = useUsers()
+
+  useEffect(() => {
+    if (user.getRole !== "manager") {
+      navigate("/", { replace: true })
+    }
+  }, [user, navigate])
 
   const rows: Rows<UserAccount> = {
     data: users.map((user) => ({
@@ -88,7 +96,7 @@ export const Users = () => {
             disabled={disabled}
             variant="destructive"
             onClick={async () => {
-              if (currentUser.getIdentifier === row.original.identifier) {
+              if (user.getIdentifier === row.original.identifier) {
                 toast.error(t("alerts.delete_yourself"))
                 return
               }
