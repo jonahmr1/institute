@@ -67,21 +67,21 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tauri-macos
-          path: src-tauri/target/release/bundle/dmg/*
+          path: src-tauri/target/release/bundle/dmg/*.dmg
 
       - name: Upload Windows artifact
         if: matrix.target == 'windows'
         uses: actions/upload-artifact@v4
         with:
           name: tauri-windows
-          path: src-tauri/target/release/bundle/msi/*
+          path: src-tauri/target/release/bundle/msi/*.msi
 
       - name: Upload Linux artifact
         if: matrix.target == 'linux'
         uses: actions/upload-artifact@v4
         with:
           name: tauri-linux
-          path: src-tauri/target/release/bundle/*
+          path: src-tauri/target/release/bundle/appimage/*.AppImage
 
   release:
     needs: build
@@ -111,6 +111,6 @@ jobs:
         with:
           tag_name: ${{ inputs.tag_name || github.ref_name }}
           files: |
-            artifacts/macos/**
-            artifacts/windows/**
-            artifacts/linux/**
+            artifacts/macos/*.dmg
+            artifacts/windows/*.msi
+            artifacts/linux/*.AppImage
