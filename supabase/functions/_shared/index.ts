@@ -12,8 +12,6 @@ export class UserConnection {
     'http://localhost:1420',
     'http://localhost:4173',
 		'https://lsworkshop.vercel.app',
-		'http://tauri.localhost',
-    'tauri://localhost',
   ] as const
 
   constructor(private readonly req: Request) {
