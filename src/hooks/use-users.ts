@@ -5,19 +5,24 @@ import { useState, useEffect } from "react"
 
 export const useUsers = () => {
   const [users, setUsers] = useState<UserAccount[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const handler = () => {
-      User.getUsers()
-        .then(([success, data]) => {
-          if (success && Array.isArray(data)) setUsers(data)
-        })
-        .catch(() => undefined)
+    const handler = async () => {
+      setIsLoading(true)
+      try {
+        const [success, data] = await User.getUsers()
+        if (success && Array.isArray(data)) setUsers(data)
+      } finally {
+        setIsLoading(false)
+      }
     }
-    handler()
+    handler().catch(() => undefined)
     const channel = supabase
       .channel("db-changes")
-      .on("broadcast", { event: "users-management" satisfies Events }, handler)
+      .on("broadcast", { event: "users-management" satisfies Events }, () => {
+        handler().catch(() => undefined)
+      })
       .subscribe()
 
     return () => {
@@ -25,5 +30,5 @@ export const useUsers = () => {
     }
   }, [])
 
-  return users
+  return { users, isLoading }
 }

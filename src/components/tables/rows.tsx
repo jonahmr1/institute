@@ -23,6 +23,7 @@ import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Spinner } from "@/components/ui/spinner"
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -36,12 +37,14 @@ import type { Rows } from "@/types"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   rows: Rows<TData>
+  isLoading?: boolean
 }
 
 export const DataTable = <TData, TValue>({
   rows: { data, filters },
   columns,
   features,
+  isLoading = false,
 }: Readonly<DataTableProps<TData, TValue>> & { features: ReactNode[] }) => {
   const [sorting, setSorting] = useState<SortingState>([])
   const [globalFilter, setGlobalFilter] = useState("")
@@ -86,6 +89,41 @@ export const DataTable = <TData, TValue>({
       columnVisibility,
     },
   })
+
+  const renderTableBody = (): React.ReactNode => {
+    if (isLoading) {
+      return (
+        <TableRow>
+          <TableCell colSpan={columns.length} className="h-24 text-center">
+            <Spinner className="mx-auto" />
+          </TableCell>
+        </TableRow>
+      )
+    }
+
+    if (table.getRowModel().rows.length) {
+      return table.getRowModel().rows.map((row) => (
+        <TableRow
+          key={row.id}
+          data-state={row.getIsSelected() && "selected"}
+        >
+          {row.getVisibleCells().map((cell) => (
+            <TableCell key={cell.id}>
+              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            </TableCell>
+          ))}
+        </TableRow>
+      ))
+    }
+
+    return (
+      <TableRow>
+        <TableCell colSpan={columns.length} className="h-24 text-center">
+          {t("no_results")}
+        </TableCell>
+      </TableRow>
+    )
+  }
 
   return (
     <div className="space-y-2">
@@ -158,34 +196,7 @@ export const DataTable = <TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  {t("no_results")}
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
+          <TableBody>{renderTableBody()}</TableBody>
         </Table>
       </div>
       <div className="flex items-center justify-between py-4">

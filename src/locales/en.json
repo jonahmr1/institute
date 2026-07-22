@@ -31,6 +31,7 @@
     "copy_id": "Copy Invoice ID",
     "copy_customer": "Copy customer name",
     "copy_seller": "Copy seller id",
+    "copied": "Invoice ID: {{identifier}} copied to clipboard.",
     "customer_name_copied": "Customer name copied to clipboard: {{name}}",
     "seller_id_copied": "Seller id copied to clipboard: {{id}}",
     "enter_info": "Enter the invoice informations that is related to this invoice only",

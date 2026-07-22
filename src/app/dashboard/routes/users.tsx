@@ -26,9 +26,10 @@ export const Users = () => {
   const dir = useDir()
   const currentUser = useUser()
   const [disabled, setDisabled] = useState(false)
+  const { users, isLoading } = useUsers()
 
   const rows: Rows<UserAccount> = {
-    data: useUsers().map((user) => ({
+    data: users.map((user) => ({
       ...user,
       roleLabel: isRole(user.role) ? t(`roles_alias.${user.role}`) : user.role,
     })),
@@ -113,7 +114,12 @@ export const Users = () => {
   return (
     <div className="h-full w-full flex items-center justify-center">
       <div className="max-w-4/5 container mx-auto py-10">
-        <DataTable columns={columns} rows={rows} features={[<CreateUser />]} />
+        <DataTable
+          columns={columns}
+          rows={rows}
+          isLoading={isLoading}
+          features={[<CreateUser />]}
+        />
       </div>
     </div>
   )

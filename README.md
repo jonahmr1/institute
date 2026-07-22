@@ -8,6 +8,6 @@ This template should help get you started developing with Tauri, React and Types
 
 
 ## TODO:
-- error boundaries
-- loading state
-- use next themes
+- [] error boundaries
+- [x]loading state
+- [] use next themes

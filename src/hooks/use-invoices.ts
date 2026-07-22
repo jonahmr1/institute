@@ -6,21 +6,27 @@ import { useState, useEffect } from "react"
 
 export const useInvoices = () => {
   const [invoices, setInvoices] = useState<DbInvoice[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const handler = async () => {
-      const [success, data] = await Invoice.getInvoices()
-      if (!success) return
-
-      setInvoices(data)
+      setIsLoading(true)
+      try {
+        const [success, data] = await Invoice.getInvoices()
+        if (success) setInvoices(data)
+      } finally {
+        setIsLoading(false)
+      }
     }
-    handler()
+    handler().catch(() => undefined)
     const channel = supabase
       .channel("db-changes")
       .on(
         "broadcast",
         { event: "invoices-management" satisfies Events },
-        handler,
+        () => {
+          handler().catch(() => undefined)
+        },
       )
       .subscribe()
 
@@ -29,5 +35,5 @@ export const useInvoices = () => {
     }
   }, [])
 
-  return invoices
+  return { invoices, isLoading }
 }

@@ -37,7 +37,7 @@ export const invoices = () => {
   const [open, setOpen] = useState<Record<string, boolean>>({})
   const isMobile = useIsMobile()
   const [urls, setUrls] = useState<Record<string, string>>({})
-  const invoices = useInvoices()
+  const { invoices, isLoading } = useInvoices()
 
   const rows = useMemo<Rows<DbInvoice>>(
     () => ({
@@ -205,6 +205,7 @@ export const invoices = () => {
         <DataTable
           columns={columns}
           rows={rows}
+          isLoading={isLoading}
           features={[<CreateInvoice />]}
         />
       </div>
