@@ -95,12 +95,12 @@ export const invoices = () => {
                 <DrawerHeader>
                   <DrawerTitle>{t("invoices.info")}</DrawerTitle>
                 </DrawerHeader>
-                <div className="flex justify-center mx-5">
+                <div className="flex justify-center m-5">
                   {urls[row.original.image] ? (
-                    <img
-                      src={urls[row.original.image]}
-                      className="rounded-md"
-                    />
+										<img
+										src={urls[row.original.image]}
+											className="rounded-md aspect-square object-contain"
+										/>
                   ) : (
                     <CarFront className="size-full" />
                   )}
